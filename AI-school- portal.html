@@ -1,0 +1,3116 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0D47A1">
+<meta name="description" content="STANDARD ECWA INTERNATIONAL SCHOOL – Super Tier-3 Pro Management Portal">
+<title>STANDARD ECWA INTERNATIONAL SCHOOL – SUPER TIER-3 PRO</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --blue:#0D47A1;--blue2:#1976D2;--light:#64B5F6;--gold:#FFC107;
+ --green:#16a34a;--orange:#f97316;--red:#dc2626;--bg:#f4f8fc;
+ --text:#172033;--muted:#64748b;--card:#fff;--sidebar:#082d68;
+ --purple:#7c3aed;--teal:#0d9488;--dev:#0f172a;--dev2:#1e293b;
+}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+body.dark{--bg:#0f172a;--text:#e2e8f0;--card:#1e293b;--muted:#94a3b8;--sidebar:#020617}
+body.dev-mode{--bg:#0b1120;--text:#e2e8f0;--card:#1e293b;--muted:#94a3b8;--sidebar:#020617}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;border:0}
+.hidden{display:none!important}
+.screen{min-height:100vh}
+#loginPage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#06265f,#0D47A1,#1976D2)}
+.login-box{width:100%;max-width:440px;background:#fff;border-radius:20px;padding:32px;box-shadow:0 25px 70px #001b4555;text-align:center}
+.logo{width:92px;height:92px;border-radius:50%;object-fit:cover;background:#eaf3ff;margin:auto;display:block;border:4px solid #fff;box-shadow:0 8px 25px #0002}
+.school-name{font-size:19px;font-weight:800;color:var(--blue);margin-top:14px;line-height:1.3}
+.motto{font-size:12px;color:var(--muted);margin:6px 0 22px}
+.field{margin:11px 0;text-align:left}
+.field label{font-size:12px;font-weight:700;display:block;margin-bottom:5px;color:#334155}
+.field input,.field select,.field textarea{width:100%;border:1px solid #dbe4ef;border-radius:12px;padding:11px 13px;outline:none;background:#f8fbff;transition:border .15s,box-shadow .15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue2);box-shadow:0 0 0 3px #1976d218}
+.pw-wrap{position:relative}
+.pw-wrap input{padding-right:42px}
+.pw-toggle{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;font-size:16px;color:#64748b;cursor:pointer}
+.btn{padding:10px 15px;border-radius:11px;font-weight:700;font-size:13px;background:var(--blue2);color:#fff;transition:filter .15s}
+.btn:hover{filter:brightness(.95)}
+.btn.gold{background:var(--gold);color:#111}
+.btn.green{background:var(--green)}
+.btn.red{background:var(--red)}
+.btn.gray{background:#64748b}
+.btn.purple{background:var(--purple)}
+.btn.teal{background:var(--teal)}
+.btn.orange{background:var(--orange)}
+.btn.sm{padding:6px 10px;font-size:12px}
+.login-btn{width:100%;margin-top:12px;padding:13px;font-size:15px}
+.login-help{font-size:11px;color:#94a3b8;margin-top:14px}
+.login-links{margin-top:12px;font-size:12px}
+.login-links a{color:var(--blue2);cursor:pointer;text-decoration:underline}
+.error{background:#fee2e2;color:#991b1b;padding:10px 12px;border-radius:10px;font-size:12px;margin:10px 0;text-align:left}
+.success{background:#dcfce7;color:#166534;padding:10px 12px;border-radius:10px;font-size:12px;margin:10px 0;text-align:left}
+#app{display:none;min-height:100vh}
+.topbar{position:fixed;top:0;left:0;right:0;height:64px;background:#fff;display:flex;align-items:center;gap:12px;padding:0 16px;box-shadow:0 2px 14px #00000010;z-index:40}
+body.dark .topbar,body.dev-mode .topbar{background:#1e293b}
+.menu-btn{background:var(--blue);color:#fff;border-radius:10px;padding:9px 12px;font-size:16px}
+.top-logo{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.top-title{font-weight:800;color:var(--blue);font-size:13px;line-height:1.25;flex:1;min-width:0}
+.top-title small{display:block;font-size:10px;color:var(--muted);font-weight:500}
+.icon-btn{background:#eef5ff;color:var(--blue);padding:9px 11px;border-radius:10px;font-size:15px}
+.user-pill{font-size:11px;font-weight:700;background:#eaf3ff;padding:8px 12px;border-radius:11px;color:var(--blue);white-space:nowrap}
+.dev-badge{background:#dc2626;color:#fff;padding:4px 10px;border-radius:8px;font-size:10px;font-weight:800;letter-spacing:.05em}
+.sidebar{position:fixed;top:64px;bottom:0;left:0;width:250px;background:var(--sidebar);color:#fff;padding:16px 10px;z-index:30;overflow:auto;transition:transform .25s ease}
+.sidebar.closed{transform:translateX(-100%)}
+.nav-section{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#9ec5ff;margin:14px 10px 6px;font-weight:600}
+.nav-btn{width:100%;text-align:left;background:transparent;color:#fff;padding:11px 12px;border-radius:10px;margin:2px 0;font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px}
+.nav-btn:hover,.nav-btn.active{background:#ffffff18}
+.logout{margin-top:16px;background:#ffffff12}
+.content{margin-left:250px;padding:80px 20px 40px;transition:margin .25s}
+.content.full{margin-left:0}
+.page{display:none}.page.active{display:block}
+.page-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.page-head h2{color:var(--blue);font-size:21px;font-weight:800}
+.page-head p{font-size:12px;color:var(--muted);margin-top:2px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.card{background:var(--card);border-radius:16px;padding:16px 18px;box-shadow:0 4px 18px #1645740a;border:1px solid #e8eef6}
+.stat{position:relative;overflow:hidden}
+.stat .number{font-size:26px;font-weight:800;color:var(--blue)}
+.stat .label{font-size:12px;color:var(--muted);margin-top:3px}
+.stat .ico{position:absolute;right:14px;top:14px;font-size:26px;opacity:.85}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{background:#eaf3ff;color:var(--blue);padding:11px 12px;text-align:left;font-weight:700}
+td{padding:10px 12px;border-bottom:1px solid #edf1f5;vertical-align:middle}
+tr:hover td{background:#fafcff}
+.table-wrap{overflow:auto;border-radius:12px}
+.badge{display:inline-block;padding:4px 9px;border-radius:20px;font-size:10px;font-weight:700}
+.badge.blue{background:#dbeafe;color:#1d4ed8}
+.badge.green{background:#dcfce7;color:#166534}
+.badge.orange{background:#ffedd5;color:#c2410c}
+.badge.red{background:#fee2e2;color:#991b1b}
+.badge.purple{background:#ede9fe;color:#6d28d9}
+.badge.teal{background:#ccfbf1;color:#0f766e}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+.toolbar input,.toolbar select{padding:9px 12px;border:1px solid #dbe4ef;border-radius:10px;background:#fff;outline:none;font-size:13px}
+.modal{position:fixed;inset:0;background:#001b4566;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-box{background:#fff;border-radius:18px;width:100%;max-width:720px;max-height:90vh;overflow:auto;padding:22px}
+body.dark .modal-box,body.dev-mode .modal-box{background:#1e293b}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.modal-head h3{font-size:17px;color:var(--blue)}
+.close{background:#fee2e2;color:#991b1b;border-radius:8px;padding:6px 10px;font-size:13px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+.toast{position:fixed;right:16px;bottom:16px;background:#10233f;color:#fff;padding:12px 18px;border-radius:12px;z-index:300;font-size:13px;box-shadow:0 10px 30px #0003;max-width:320px}
+.score-grid input{width:70px;padding:7px 8px;border:1px solid #dbe4ef;border-radius:8px;text-align:center}
+.report-card{background:#fff;max-width:980px;margin:auto;padding:24px;border:1px solid #dbe4ef;border-radius:8px}
+.report-head{text-align:center;border-bottom:3px solid var(--blue);padding-bottom:14px;margin-bottom:14px}
+.report-head img{width:72px;height:72px;object-fit:cover;border-radius:50%}
+.report-head h1{font-size:20px;color:var(--blue);margin-top:8px}
+.report-head p{font-size:11px;color:#475569}
+.student-info{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;font-size:11.5px}
+.student-info div{background:#f4f8fc;padding:9px;border-radius:6px}
+.report-table th,.report-table td{border:1px solid #cbd5e1;padding:8px}
+.report-table th{background:#eaf3ff}
+.comment{border:1px solid #e2e8f0;padding:11px;margin-top:10px;font-size:11.5px;border-radius:6px;background:#fafcff}
+.signature{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:36px;text-align:center}
+.signature div{border-top:1px solid #334155;padding-top:6px;font-size:11px}
+.sig-img{max-height:48px;margin-bottom:4px}
+.bank-card{border:2px solid #e2e8f0;border-radius:14px;padding:14px;cursor:pointer;transition:.15s;text-align:center}
+.bank-card:hover,.bank-card.selected{border-color:var(--blue2);background:#f0f7ff}
+.bank-card img{width:48px;height:48px;object-fit:contain;margin-bottom:6px}
+.voucher-box{background:linear-gradient(135deg,#0D47A1,#1976D2);color:#fff;border-radius:16px;padding:20px;margin-bottom:16px}
+.voucher-box h3{font-size:16px;margin-bottom:8px}
+.pay-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #ffffff22;font-size:13px}
+.pulse{animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+.dev-banner{background:linear-gradient(90deg,#0D47A1,#7c3aed);color:#fff;padding:10px 16px;border-radius:12px;font-size:12px;margin:16px 0;text-align:center}
+.dev-banner a{color:#FFC107;font-weight:700}
+.footer-dev{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-top:1px solid #e2e8f0;margin-top:30px}
+.dev-danger{border:2px solid #dc2626;background:#1c0a0a;border-radius:14px;padding:16px}
+.dev-safe{border:2px solid #16a34a;background:#0a1c12;border-radius:14px;padding:16px}
+.dev-warn{border:2px solid #f97316;background:#1c120a;border-radius:14px;padding:16px}
+.storage-bar{height:10px;background:#334155;border-radius:8px;overflow:hidden;margin-top:8px}
+.storage-fill{height:100%;background:linear-gradient(90deg,#16a34a,#f97316,#dc2626);border-radius:8px}
+.chart-bar{display:flex;align-items:flex-end;gap:6px;height:120px;padding:8px 0}
+.chart-col{flex:1;background:#1976D2;border-radius:4px 4px 0 0;min-width:20px;position:relative}
+.chart-col span{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:9px;white-space:nowrap}
+@media(max-width:960px){
+ .cards{grid-template-columns:repeat(2,1fr)}
+ .grid2,.grid3{grid-template-columns:1fr}
+ .sidebar{transform:translateX(-100%)}
+ .sidebar.open{transform:translateX(0)}
+ .content{margin-left:0;padding-left:14px;padding-right:14px}
+ .user-pill{display:none}
+}
+@media(max-width:600px){
+ .cards{grid-template-columns:1fr 1fr;gap:10px}
+ .card{padding:13px}
+ .stat .number{font-size:22px}
+ .top-title{font-size:11px}
+ .form-grid{grid-template-columns:1fr}
+ .student-info{grid-template-columns:1fr 1fr}
+ table{min-width:680px}
+ .report-card{padding:12px}
+}
+@media print{
+ body{background:#fff}
+ .topbar,.sidebar,.page-head,.no-print,.toast,.modal,.footer-dev,.dev-banner,#chatbotFab,#chatbotPanel{display:none!important}
+ .content{margin:0!important;padding:0!important}
+ .report-card{border:0;max-width:none;box-shadow:none}
+}
+
+/* ===== CHATBOT STYLES ===== */
+#chatbotFab{
+  position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;
+  background:linear-gradient(135deg,#0D47A1,#1976D2);color:#fff;font-size:26px;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px #0d47a166;
+  z-index:250;cursor:pointer;transition:transform .2s,box-shadow .2s;border:3px solid #fff;
+}
+#chatbotFab:hover{transform:scale(1.08);box-shadow:0 12px 32px #0d47a188}
+#chatbotFab.hidden{display:none!important}
+#chatbotPanel{
+  position:fixed;right:20px;bottom:90px;width:380px;max-width:calc(100vw - 24px);
+  height:560px;max-height:calc(100vh - 120px);background:var(--card);border-radius:18px;
+  box-shadow:0 20px 60px #001b4566;z-index:260;display:flex;flex-direction:column;
+  overflow:hidden;border:1px solid #e2e8f0;
+}
+#chatbotPanel.hidden{display:none!important}
+.chat-header{
+  background:linear-gradient(135deg,#0D47A1,#1976D2);color:#fff;padding:14px 16px;
+  display:flex;align-items:center;gap:10px;flex-shrink:0;
+}
+.chat-header .avatar{width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:18px}
+.chat-header h4{font-size:14px;font-weight:700;flex:1}
+.chat-header small{display:block;font-size:10px;opacity:.85;font-weight:400}
+.chat-close{background:#ffffff22;color:#fff;border-radius:8px;padding:6px 10px;font-size:14px}
+.chat-body{flex:1;overflow-y:auto;padding:14px;background:#f8fafc}
+body.dark .chat-body,body.dev-mode .chat-body{background:#0f172a}
+.chat-msg{margin-bottom:12px;max-width:92%;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.chat-msg.bot{margin-right:auto}
+.chat-msg.user{margin-left:auto}
+.chat-bubble{padding:10px 13px;border-radius:14px;font-size:13px;line-height:1.5;word-break:break-word}
+.chat-msg.bot .chat-bubble{background:#e8f0fe;color:#1e293b;border-bottom-left-radius:4px}
+body.dark .chat-msg.bot .chat-bubble,body.dev-mode .chat-msg.bot .chat-bubble{background:#1e3a5f;color:#e2e8f0}
+.chat-msg.user .chat-bubble{background:var(--blue2);color:#fff;border-bottom-right-radius:4px}
+.chat-time{font-size:10px;color:var(--muted);margin-top:3px;padding:0 4px}
+.chat-msg.user .chat-time{text-align:right}
+.chat-quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chat-quick button{background:#e0e7ff;color:#1e40af;border:0;border-radius:16px;padding:5px 11px;font-size:11px;font-weight:600;cursor:pointer}
+.chat-quick button:hover{background:#c7d2fe}
+.chat-input-area{padding:10px 12px;border-top:1px solid #e2e8f0;display:flex;gap:8px;background:var(--card);flex-shrink:0}
+.chat-input-area input{flex:1;border:1px solid #dbe4ef;border-radius:20px;padding:10px 14px;outline:none;font-size:13px;background:#f8fbff}
+.chat-input-area input:focus{border-color:var(--blue2)}
+.chat-send{background:var(--blue2);color:#fff;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.chat-typing{font-size:12px;color:var(--muted);padding:4px 8px;font-style:italic}
+.chat-badge{position:absolute;top:-4px;right:-4px;background:#dc2626;color:#fff;font-size:10px;font-weight:800;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.chat-bubble code{background:#dbeafe;padding:1px 5px;border-radius:4px;font-size:12px}
+.chat-bubble pre{background:#1e293b;color:#e2e8f0;padding:10px;border-radius:8px;overflow-x:auto;font-size:12px;margin:6px 0}
+.chat-bubble table{border-collapse:collapse;width:100%;font-size:11px;margin:6px 0}
+.chat-bubble th,.chat-bubble td{border:1px solid #cbd5e1;padding:4px 6px}
+.chat-bubble th{background:#eaf3ff}
+</style>
+</head>
+<body>
+
+<section id="loginPage" class="screen">
+ <div class="login-box">
+  <img id="loginLogo" class="logo" alt="School Logo">
+  <div class="school-name">STANDARD ECWA NURSERY, PRIMARY<br>AND SECONDARY SCHOOL</div>
+  <div class="motto">No. 191 Nagogo Road GRA, Katsina City, Katsina State</div>
+  <div id="loginError" class="error hidden"></div>
+  <div id="maintMsg" class="error hidden"></div>
+  <div class="field"><label>Username</label><input id="loginUser" autocomplete="username" placeholder="Enter username" spellcheck="false"></div>
+  <div class="field"><label>Password</label>
+   <div class="pw-wrap">
+    <input id="loginPass" type="password" autocomplete="current-password" placeholder="Enter password">
+    <button type="button" class="pw-toggle" id="toggleLoginPass" title="Show/Hide">👁️</button>
+   </div>
+  </div>
+  <button class="btn login-btn" id="loginBtn">LOGIN</button>
+  <div class="login-links"><a id="forgotLink">Forgot Password?</a></div>
+  <div class="login-help">Super Tier-3 Pro • Secure School Management Portal</div>
+  <div class="dev-banner" style="margin-top:18px">🚀 Built by <b>Mr Victor Mchiave</b> • ☎ 08063563617 • Professional School Portals</div>
+ </div>
+</section>
+
+<div id="app">
+<header class="topbar">
+ <button class="menu-btn" id="menuBtn" type="button">☰</button>
+ <img id="topLogo" class="top-logo" alt="">
+ <div class="top-title">STANDARD ECWA SCHOOL PORTAL <small id="currentPageTitle">Dashboard</small></div>
+ <span id="devModeBadge" class="dev-badge hidden">DEVELOPER MODE</span>
+ <button class="icon-btn" id="themeBtn" type="button" title="Theme">☀️</button>
+ <button class="icon-btn" id="notifBtn" type="button" title="Notifications">🔔</button>
+ <div id="userPill" class="user-pill"></div>
+</header>
+
+<aside id="sidebar" class="sidebar">
+ <div id="nav"></div>
+ <button class="nav-btn logout" id="logoutBtn" type="button">🚪 Logout</button>
+</aside>
+
+<main id="content" class="content">
+
+<section id="page-dashboard" class="page active">
+ <div class="page-head"><div><h2>Dashboard</h2><p id="welcomeText"></p></div><span class="badge blue" id="roleBadge"></span></div>
+ <div class="cards">
+  <div class="card stat"><div class="ico">👨‍🎓</div><div class="number" id="statStudents">0</div><div class="label">Students</div></div>
+  <div class="card stat"><div class="ico">👨‍🏫</div><div class="number" id="statTeachers">0</div><div class="label">Teachers / Staff</div></div>
+  <div class="card stat"><div class="ico">🏫</div><div class="number" id="statClasses">0</div><div class="label">Classes</div></div>
+  <div class="card stat"><div class="ico">💰</div><div class="number" id="statPayments">₦0</div><div class="label">Fees Collected</div></div>
+ </div>
+ <div class="grid2">
+  <div class="card"><h3 style="font-size:15px;margin-bottom:10px">Academic Summary</h3><div id="academicSummary"></div></div>
+  <div class="card"><h3 style="font-size:15px;margin-bottom:10px">Recent Notifications</h3><div id="recentNotifications"></div></div>
+ </div>
+ <div class="dev-banner">Designed & Developed by <b>Mr Victor Mchiave</b> • Professional Super Tier-3 Pro School Portal • ☎ 08063563617</div>
+</section>
+
+<section id="page-developer" class="page">
+ <div class="page-head"><div><h2>Developer Dashboard</h2><p>Engine Room • System Control & Maintenance</p></div><span class="dev-badge">DEVELOPER MODE</span></div>
+ <div class="cards" id="devStats"></div>
+ <div class="grid2">
+  <div class="card dev-danger">
+   <h3 style="color:#f87171;font-size:15px;margin-bottom:12px">⚠ Danger Zone</h3>
+   <p style="font-size:12px;color:#94a3b8;margin-bottom:12px">Critical controls. Double confirmation required.</p>
+   <button class="btn red" id="devShutdownBtn" type="button" style="width:100%;margin-bottom:8px">🛑 Shutdown Portal (Maintenance)</button>
+   <button class="btn green" id="devReopenBtn" type="button" style="width:100%;margin-bottom:8px">✅ Reopen Portal</button>
+   <button class="btn orange" id="devLockBtn" type="button" style="width:100%;margin-bottom:8px">🔒 Lock Portal (Dev Only)</button>
+   <button class="btn teal" id="devUnlockBtn" type="button" style="width:100%;margin-bottom:8px">🔓 Unlock Portal</button>
+   <button class="btn red" id="devFactoryBtn" type="button" style="width:100%">💣 Factory Reset</button>
+  </div>
+  <div class="card dev-safe">
+   <h3 style="color:#4ade80;font-size:15px;margin-bottom:12px">🛠 Maintenance Tools</h3>
+   <button class="btn green" id="devBackupBtn" type="button" style="width:100%;margin-bottom:8px">⬇ Download Full Backup (JSON)</button>
+   <button class="btn teal" id="devRestoreBtn" type="button" style="width:100%;margin-bottom:8px">⬆ Restore from Backup</button>
+   <input type="file" id="restoreFile" accept=".json" class="hidden">
+   <button class="btn purple" id="devExportBtn" type="button" style="width:100%;margin-bottom:8px">📦 Export All Data (CSV)</button>
+   <button class="btn gray" id="devClearCacheBtn" type="button" style="width:100%;margin-bottom:8px">🧹 Clear Cache / Old Logs</button>
+   <button class="btn blue" id="devDiagBtn" type="button" style="width:100%">🔍 Run Diagnostics</button>
+  </div>
+ </div>
+ <div class="grid2" style="margin-top:16px">
+  <div class="card">
+   <h3 style="font-size:15px;margin-bottom:10px">System Health</h3>
+   <div id="devHealth"></div>
+  </div>
+  <div class="card">
+   <h3 style="font-size:15px;margin-bottom:10px">Quick Config</h3>
+   <div class="field"><label>School Name</label><input id="devSchoolName"></div>
+   <div class="field"><label>Session</label><input id="devSession"></div>
+   <div class="field"><label>Term</label><select id="devTerm"><option>First Term</option><option>Second Term</option><option>Third Term</option></select></div>
+   <div class="field"><label>Pass Mark</label><input id="devPassMark" type="number" min="0" max="100" value="50"></div>
+   <div class="field"><label>Session Timeout (hours)</label><input id="devTimeout" type="number" min="1" max="24" value="8"></div>
+   <button class="btn green" id="devSaveConfigBtn" type="button">Save Config</button>
+  </div>
+ </div>
+ <div class="grid2" style="margin-top:16px">
+  <div class="card">
+   <h3 style="font-size:15px;margin-bottom:10px">Audit / System Logs</h3>
+   <div id="devLogs" style="max-height:220px;overflow:auto;font-size:12px"></div>
+  </div>
+  <div class="card">
+   <h3 style="font-size:15px;margin-bottom:10px">Tools</h3>
+   <div class="field"><label>Search Student</label><input id="devStudentSearch" placeholder="Name or Admission No"></div>
+   <div id="devStudentResult" style="font-size:12px;margin:8px 0"></div>
+   <button class="btn sm" id="devSearchStudentBtn" type="button">Search</button>
+   <hr style="margin:12px 0;border:none;border-top:1px solid #334155">
+   <button class="btn sm teal" id="devResultLinkBtn" type="button">Generate Parent Result Link</button>
+   <div id="devResultLink" style="font-size:11px;margin-top:6px;word-break:break-all"></div>
+   <hr style="margin:12px 0;border:none;border-top:1px solid #334155">
+   <button class="btn sm purple" id="devTestAnnounceBtn" type="button">Send Test Announcement</button>
+   <button class="btn sm" id="devResetPwBtn" type="button" style="margin-top:8px">Password Reset Tool</button>
+  </div>
+ </div>
+ <div class="card" style="margin-top:16px">
+  <h3 style="font-size:15px;margin-bottom:10px">Payment Summary by Class</h3>
+  <div id="devPayChart" class="chart-bar"></div>
+ </div>
+ <div class="card" style="margin-top:16px">
+  <h3 style="font-size:15px">Developer Info</h3>
+  <p style="margin-top:8px"><b>Version:</b> v3.2.0 – Sep 2026</p>
+  <p style="font-size:12px;color:#94a3b8">Designed & Developed by Mr Victor Mchiave • ☎ 08063563617</p>
+  <p style="font-size:12px;margin-top:6px"><b>Changelog:</b> Developer Dashboard • Subject Allocation • Domain Likert Scale • Digital Signatures • Restore Backup • Audit Logs • Performance optimisations • Super AI Chatbot Plus</p>
+ </div>
+</section>
+
+<section id="page-students" class="page">
+ <div class="page-head"><div><h2>Student Management</h2><p>Register and manage students</p></div><button class="btn no-print" id="addStudentBtn" type="button">＋ Add Student</button></div>
+ <div class="toolbar"><input id="studentSearch" placeholder="Search student..." style="min-width:180px"><select id="studentClassFilter"><option value="">All Classes</option></select></div>
+ <div class="card table-wrap"><table><thead><tr><th>Admission No.</th><th>Name</th><th>Gender</th><th>Class</th><th>Parent</th><th>Status</th><th>Action</th></tr></thead><tbody id="studentsTable"></tbody></table></div>
+</section>
+
+<section id="page-teachers" class="page">
+ <div class="page-head"><div><h2>Teacher / Staff Management</h2><p>Assign teachers, salaries & bank details</p></div><button class="btn no-print" id="addTeacherBtn" type="button">＋ Add Staff</button></div>
+ <div class="card table-wrap"><table><thead><tr><th>Name</th><th>Username</th><th>Class</th><th>Monthly Salary</th><th>Bank / Account</th><th>Status</th><th>Action</th></tr></thead><tbody id="teachersTable"></tbody></table></div>
+</section>
+
+<section id="page-allocations" class="page">
+ <div class="page-head"><div><h2>Subject Allocation</h2><p>Assign subject teachers to classes (independent of Form Teacher)</p></div><button class="btn no-print" id="addAllocBtn" type="button">＋ Allocate Subject</button></div>
+ <div class="card table-wrap"><table><thead><tr><th>Teacher</th><th>Subject</th><th>Class</th><th>Action</th></tr></thead><tbody id="allocTable"></tbody></table></div>
+</section>
+
+<section id="page-classes" class="page">
+ <div class="page-head"><div><h2>Classes</h2><p>Class assignment and class security</p></div><button class="btn no-print" id="addClassBtn" type="button">＋ Add Class</button></div>
+ <div class="cards" id="classCards"></div>
+</section>
+
+<section id="page-subjects" class="page">
+ <div class="page-head"><div><h2>Subjects</h2><p>Manage school subjects</p></div><button class="btn no-print" id="addSubjectBtn" type="button">＋ Add Subject</button></div>
+ <div class="card table-wrap"><table><thead><tr><th>Subject</th><th>Code</th><th>Section</th><th>Action</th></tr></thead><tbody id="subjectsTable"></tbody></table></div>
+</section>
+
+<section id="page-attendance" class="page">
+ <div class="page-head"><div><h2>Attendance</h2><p>Mark daily student attendance • Percentage calculated</p></div></div>
+ <div class="toolbar"><select id="attendanceClass"></select><input type="date" id="attendanceDate"></div>
+ <div class="card table-wrap"><table><thead><tr><th>Admission No.</th><th>Student</th><th>Class</th><th>Status</th><th>Attendance %</th></tr></thead><tbody id="attendanceTable"></tbody></table></div>
+ <br><button class="btn green no-print" id="saveAttendanceBtn" type="button">Save Attendance</button>
+</section>
+
+<section id="page-scores" class="page">
+ <div class="page-head"><div><h2>Score Entry</h2><p>CA1 + CA2 + CA3 + Exam = 100</p></div></div>
+ <div class="toolbar"><select id="scoreClass"></select><select id="scoreSubject"></select><button class="btn green no-print" id="saveScoresBtn" type="button">Save Scores</button></div>
+ <div class="card table-wrap"><table class="score-grid"><thead><tr><th>Admission No.</th><th>Student</th><th>CA 1<br>/20</th><th>CA 2<br>/20</th><th>CA 3<br>/20</th><th>Exam<br>/40</th><th>Total<br>/100</th><th>Grade</th><th>Remark</th></tr></thead><tbody id="scoresTable"></tbody></table></div>
+</section>
+
+<section id="page-results" class="page">
+ <div class="page-head"><div><h2>Results</h2><p>Processed student report cards</p></div>
+  <div class="no-print" style="display:flex;gap:8px;flex-wrap:wrap">
+   <button class="btn" id="printReportBtn" type="button">🖨 Print</button>
+   <button class="btn teal" id="downloadReportBtn" type="button">⬇ Download</button>
+   <button class="btn purple" id="shareReportBtn" type="button">📤 Share</button>
+  </div>
+ </div>
+ <div class="toolbar"><select id="resultClass"></select><select id="resultStudent"></select></div>
+ <div id="reportContainer"></div>
+</section>
+
+<section id="page-broadsheet" class="page">
+ <div class="page-head"><div><h2>Broadsheet & Cumulative</h2><p>Term broadsheet per class • Session cumulative</p></div>
+  <div class="no-print" style="display:flex;gap:8px">
+   <button class="btn teal" id="downloadBroadsheetBtn" type="button">⬇ Download</button>
+   <button class="btn" id="printBroadsheetBtn" type="button">🖨 Print</button>
+  </div>
+ </div>
+ <div class="toolbar">
+  <select id="bsClass"></select>
+  <select id="bsTerm"><option>First Term</option><option>Second Term</option><option>Third Term</option><option value="cumulative">Cumulative (Session)</option></select>
+  <button class="btn green" id="loadBroadsheetBtn" type="button">Load</button>
+ </div>
+ <div id="broadsheetContainer"></div>
+</section>
+
+<section id="page-bursary" class="page">
+ <div class="page-head"><div><h2>Bursary – Fees</h2><p>Fees, payments, balances and receipts</p></div><button class="btn no-print" id="addPaymentBtn" type="button">＋ Record Payment</button></div>
+ <div class="cards">
+  <div class="card stat"><div class="number" id="totalFees">₦0</div><div class="label">Expected Fees</div></div>
+  <div class="card stat"><div class="number" id="paidFees">₦0</div><div class="label">Paid</div></div>
+  <div class="card stat"><div class="number" id="balanceFees">₦0</div><div class="label">Outstanding</div></div>
+  <div class="card stat"><div class="number" id="paymentCount">0</div><div class="label">Transactions</div></div>
+ </div>
+ <div class="card table-wrap"><table><thead><tr><th>Receipt</th><th>Student</th><th>Amount</th><th>Date</th><th>Term</th><th>Action</th></tr></thead><tbody id="paymentsTable"></tbody></table></div>
+</section>
+
+<section id="page-payroll" class="page">
+ <div class="page-head">
+  <div><h2>Payroll &amp; Salary Vouchers</h2><p>Prepare voucher → Select bank → Instant salary credit</p></div>
+  <button class="btn purple no-print" id="prepareVoucherBtn" type="button">＋ Prepare Salary Voucher</button>
+ </div>
+ <div class="cards">
+  <div class="card stat"><div class="number" id="statStaffCount">0</div><div class="label">Active Staff</div></div>
+  <div class="card stat"><div class="number" id="statPayrollTotal">₦0</div><div class="label">Monthly Payroll</div></div>
+  <div class="card stat"><div class="number" id="statVouchers">0</div><div class="label">Vouchers Issued</div></div>
+  <div class="card stat"><div class="number" id="statPaidSalaries">₦0</div><div class="label">Salaries Paid</div></div>
+ </div>
+ <div class="card table-wrap">
+  <table>
+   <thead><tr><th>Voucher No.</th><th>Month</th><th>Bank</th><th>Staff</th><th>Total Amount</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
+   <tbody id="vouchersTable"></tbody>
+  </table>
+ </div>
+</section>
+
+<section id="page-users" class="page">
+ <div class="page-head"><div><h2>User Management</h2><p>Portal access control</p></div></div>
+ <div class="card table-wrap"><table><thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Password Status</th><th>Action</th></tr></thead><tbody id="usersTable"></tbody></table></div>
+</section>
+
+<section id="page-settings" class="page">
+ <div class="page-head"><div><h2>School Settings</h2><p>Branding and academic configuration</p></div></div>
+ <div class="grid2">
+  <div class="card">
+   <h3 style="font-size:15px;margin-bottom:12px">School Branding</h3>
+   <div class="field"><label>School Name</label><input id="settingSchoolName"></div>
+   <div class="field"><label>Address</label><input id="settingAddress"></div>
+   <div class="field"><label>Motto</label><input id="settingMotto"></div>
+   <div class="field"><label>Upload School Logo</label><input type="file" id="logoUpload" accept="image/*"></div>
+   <div class="field"><label>Class Teacher Signature (image)</label><input type="file" id="sigTeacherUpload" accept="image/*"></div>
+   <div class="field"><label>Principal Signature (image)</label><input type="file" id="sigPrincipalUpload" accept="image/*"></div>
+   <button class="btn green" id="saveBrandBtn" type="button">Save Settings</button>
+  </div>
+  <div class="card">
+   <h3 style="font-size:15px;margin-bottom:12px">Academic Setup</h3>
+   <div class="field"><label>Session</label><input id="settingSession"></div>
+   <div class="field"><label>Current Term</label><select id="settingTerm"><option>First Term</option><option>Second Term</option><option>Third Term</option></select></div>
+   <div class="field"><label>Result Status</label><select id="settingLock"><option value="open">Open</option><option value="locked">Locked</option></select></div>
+   <div class="field"><label>Pass Mark</label><input id="settingPassMark" type="number" min="0" max="100" value="50"></div>
+   <button class="btn green" id="saveAcademicBtn" type="button">Save Academic Setup</button>
+  </div>
+ </div>
+ <br>
+ <div class="card">
+  <h3 style="font-size:15px">Developer & Support</h3>
+  <p style="margin-top:10px"><b>Designed &amp; Developed by Mr Victor Mchiave</b></p>
+  <p style="font-size:12px;color:#64748b;margin-top:6px">Professional School Portal Development – Super Tier-3 Pro</p>
+  <p style="font-weight:700;color:#1976D2;margin-top:6px">☎ 08063563617</p>
+  <p style="font-size:12px;margin-top:8px">For custom upgrades, multi-school deployment, SMS/WhatsApp integration & cloud hosting contact the developer.</p>
+ </div>
+</section>
+
+<section id="page-assignments" class="page">
+ <div class="page-head"><div><h2>Assignments</h2><p>Create and manage assignments</p></div><button class="btn no-print" id="addAssignmentBtn" type="button">＋ New Assignment</button></div>
+ <div class="card table-wrap"><table><thead><tr><th>Title</th><th>Subject</th><th>Class</th><th>Due Date</th><th>Status</th><th>Action</th></tr></thead><tbody id="assignmentsTable"></tbody></table></div>
+</section>
+
+<section id="page-notifications" class="page">
+ <div class="page-head"><div><h2>Notifications & Announcements</h2><p>Portal alerts • Target specific audiences</p></div><button class="btn no-print" id="addAnnouncementBtn" type="button">＋ Announcement</button></div>
+ <div id="notificationList"></div>
+</section>
+
+<section id="page-profile" class="page">
+ <div class="page-head"><div><h2>My Profile</h2><p>Account information</p></div></div>
+ <div class="card" id="profileCard"></div>
+</section>
+
+<div class="footer-dev no-print">
+ © STANDARD ECWA SCHOOL • Super Tier-3 Pro Portal • Designed & Developed by <b>Mr Victor Mchiave</b> ☎ 08063563617 • Knowledge, Character and Service
+</div>
+</main>
+</div>
+
+<div id="modal" class="modal hidden">
+ <div class="modal-box">
+  <div class="modal-head"><h3 id="modalTitle"></h3><button class="close" id="modalClose" type="button">✕</button></div>
+  <div id="modalBody"></div>
+ </div>
+</div>
+<div id="toast" class="toast hidden"></div>
+
+<!-- ===== SUPER AI CHATBOT PLUS UI ===== -->
+<button id="chatbotFab" class="hidden" type="button" title="ECWA Super AI Chatbot Plus">🤖</button>
+<div id="chatbotPanel" class="hidden">
+  <div class="chat-header">
+    <div class="avatar">🧠</div>
+    <div style="flex:1"><h4>ECWA Super AI Plus</h4><small id="chatStatus">Online • Highly Intelligent Assistant</small></div>
+    <button class="chat-close" id="chatCloseBtn" type="button">✕</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-input-area">
+    <input id="chatInput" placeholder="Ask anything: portal, maths, science, research..." autocomplete="off">
+    <button class="chat-send" id="chatSendBtn" type="button">➤</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+const KEY = "STANDARD_ECWA_PORTAL_V3_TIER3_PRO";
+const SESSION_KEY = "ECWA_SESSION_V3_PRO";
+const SALT = "ECWA_SCHOOL_2026_SECURE_SALT_X9_TIER3_PRO";
+const VERSION = "v3.2.0";
+
+const BANKS = [
+  {id:"uba",name:"United Bank for Africa (UBA)",code:"033",color:"#e11d48"},
+  {id:"access",name:"Access Bank",code:"044",color:"#f97316"},
+  {id:"gtb",name:"Guaranty Trust Bank (GTBank)",code:"058",color:"#16a34a"},
+  {id:"zenith",name:"Zenith Bank",code:"057",color:"#dc2626"},
+  {id:"first",name:"First Bank of Nigeria",code:"011",color:"#1d4ed8"},
+  {id:"fidelity",name:"Fidelity Bank",code:"070",color:"#7c3aed"},
+  {id:"stanbic",name:"Stanbic IBTC",code:"221",color:"#0d9488"},
+  {id:"union",name:"Union Bank",code:"032",color:"#0891b2"}
+];
+
+const DOMAIN_KEYS = ["conduct","attentiveness","handwriting","neatness","punctuality","cooperation","leadership","sports"];
+
+const DEFAULT = {
+ settings: {
+  schoolName: "STANDARD ECWA NURSERY, PRIMARY AND SECONDARY SCHOOL",
+  address: "No. 191 Nagogo Road GRA, Katsina City, Katsina State",
+  motto: "Knowledge, Character and Service",
+  session: "2026/2027",
+  term: "First Term",
+  resultLock: "open",
+  logo: "",
+  passMark: 50,
+  sessionTimeout: 8,
+  portalStatus: "online",
+  maintMessage: "",
+  lockMode: false,
+  lastBackup: "",
+  sigTeacher: "",
+  sigPrincipal: ""
+ },
+ users: [
+  {id:"u0",name:"Mr Victor Mchiave",username:"Mchiave",passwordHash:null,role:"developer",mustChange:false},
+  {id:"u1",name:"System Administrator",username:"admin",passwordHash:null,role:"admin",mustChange:false},
+  {id:"u2",name:"Teacher Account",username:"teacher",passwordHash:null,role:"teacher",classId:"jss1",mustChange:false,salary:85000,bankId:"gtb",accountNo:"0123456789",accountName:"Teacher Account"},
+  {id:"u3",name:"Exam Officer",username:"exam",passwordHash:null,role:"exam",mustChange:false,salary:95000,bankId:"uba",accountNo:"2233445566",accountName:"Exam Officer"},
+  {id:"u4",name:"Bursary Officer",username:"bursary",passwordHash:null,role:"bursary",mustChange:false,salary:110000,bankId:"zenith",accountNo:"3344556677",accountName:"Bursary Officer"},
+  {id:"u5",name:"Parent Account",username:"parent",passwordHash:null,role:"parent",studentId:"STU001",mustChange:false},
+  {id:"u6",name:"Student Account",username:"student",passwordHash:null,role:"student",studentId:"STU001",mustChange:false}
+ ],
+ classes: [
+  {id:"nur1",name:"Nursery 1",section:"Nursery",password:"NUR@2026",teacherId:""},
+  {id:"nur2",name:"Nursery 2",section:"Nursery",password:"NUR2@2026",teacherId:""},
+  {id:"pri1",name:"Primary 1",section:"Primary",password:"PRI1@2026",teacherId:""},
+  {id:"pri2",name:"Primary 2",section:"Primary",password:"PRI2@2026",teacherId:""},
+  {id:"pri3",name:"Primary 3",section:"Primary",password:"PRI3@2026",teacherId:""},
+  {id:"pri4",name:"Primary 4",section:"Primary",password:"PRI4@2026",teacherId:""},
+  {id:"pri5",name:"Primary 5",section:"Primary",password:"PRI5@2026",teacherId:""},
+  {id:"pri6",name:"Primary 6",section:"Primary",password:"PRI6@2026",teacherId:""},
+  {id:"jss1",name:"JSS 1",section:"Secondary",password:"JSS1@2026",teacherId:"u2"},
+  {id:"jss2",name:"JSS 2",section:"Secondary",password:"JSS2@2026",teacherId:""},
+  {id:"jss3",name:"JSS 3",section:"Secondary",password:"JSS3@2026",teacherId:""},
+  {id:"sss1",name:"SSS 1",section:"Secondary",password:"SSS1@2026",teacherId:""},
+  {id:"sss2",name:"SSS 2",section:"Secondary",password:"SSS2@2026",teacherId:""},
+  {id:"sss3",name:"SSS 3",section:"Secondary",password:"SSS3@2026",teacherId:""}
+ ],
+ subjects: [
+  {id:"mat",name:"Mathematics",code:"MTH",section:"All"},
+  {id:"eng",name:"English Studies",code:"ENG",section:"All"},
+  {id:"sci",name:"Basic Science",code:"SCI",section:"Secondary"},
+  {id:"sst",name:"Social Studies",code:"SST",section:"Primary"},
+  {id:"civ",name:"Civic Education",code:"CIV",section:"Secondary"},
+  {id:"crs",name:"Christian Religious Studies",code:"CRS",section:"All"},
+  {id:"ict",name:"Computer Studies",code:"ICT",section:"All"}
+ ],
+ allocations: [],
+ students: [
+  {id:"STU001",admission:"STD/2026/001",name:"Sample Student",gender:"Male",dob:"2013-05-10",classId:"jss1",parent:"Sample Parent",phone:"08000000000",status:"Active"}
+ ],
+ payments: [],
+ attendance: [],
+ scores: [],
+ assignments: [],
+ notifications: [
+  {id:"n1",title:"Welcome",message:"Welcome to the Standard ECWA Super Tier-3 Pro Portal.",date:new Date().toISOString(),audience:"all"}
+ ],
+ vouchers: [],
+ salaryPayments: [],
+ domains: {},
+ logs: [],
+ failedLogins: [],
+ chatHistory: []
+};
+
+let DB = null;
+let currentUser = null;
+let selectedClass = null;
+let classUnlocked = false;
+let selectedBankId = null;
+
+function hashPassword(pw) {
+  const str = SALT + String(pw || "");
+  let h = 0x811c9dc5;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
+  }
+  return ("00000000" + (h >>> 0).toString(16)).slice(-8) +
+         ("00000000" + ((h * 0x9e3779b9) >>> 0).toString(16)).slice(-8);
+}
+
+function initDefaultHashes() {
+  const defPw = "ECWA@2026";
+  const h = hashPassword(defPw);
+  const devH = hashPassword("MnV1196");
+  DEFAULT.users.forEach(u => {
+    if (!u.passwordHash) {
+      if (u.username.toLowerCase() === "mchiave") u.passwordHash = devH;
+      else u.passwordHash = h;
+    }
+  });
+}
+
+function clone(o) { return JSON.parse(JSON.stringify(o)); }
+
+function logAction(msg) {
+  if (!DB) return;
+  DB.logs = DB.logs || [];
+  DB.logs.push({ id: uid("LOG"), msg, date: new Date().toISOString(), user: currentUser ? currentUser.username : "system" });
+  if (DB.logs.length > 200) DB.logs = DB.logs.slice(-200);
+  saveDB();
+}
+
+function loadDB() {
+  initDefaultHashes();
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      const merged = Object.assign(clone(DEFAULT), parsed);
+      if (!Array.isArray(merged.users)) merged.users = clone(DEFAULT.users);
+      if (!Array.isArray(merged.vouchers)) merged.vouchers = [];
+      if (!Array.isArray(merged.salaryPayments)) merged.salaryPayments = [];
+      if (!Array.isArray(merged.allocations)) merged.allocations = [];
+      if (!Array.isArray(merged.logs)) merged.logs = [];
+      if (!Array.isArray(merged.failedLogins)) merged.failedLogins = [];
+      if (!Array.isArray(merged.chatHistory)) merged.chatHistory = [];
+      if (!merged.domains) merged.domains = {};
+      if (!merged.settings.passMark) merged.settings.passMark = 50;
+      if (!merged.settings.sessionTimeout) merged.settings.sessionTimeout = 8;
+      if (!merged.settings.portalStatus) merged.settings.portalStatus = "online";
+
+      let dev = merged.users.find(u => u.username.toLowerCase() === "mchiave");
+      if (!dev) {
+        merged.users.unshift({
+          id: "u0",
+          name: "Mr Victor Mchiave",
+          username: "Mchiave",
+          passwordHash: hashPassword("MnV1196"),
+          role: "developer",
+          mustChange: false
+        });
+      } else {
+        dev.passwordHash = hashPassword("MnV1196");
+        dev.mustChange = false;
+        dev.role = "developer";
+        dev.name = "Mr Victor Mchiave";
+      }
+
+      merged.users.forEach(u => {
+        if (!u.passwordHash && u.password) {
+          u.passwordHash = hashPassword(u.password);
+          delete u.password;
+        }
+        if (!u.passwordHash) u.passwordHash = hashPassword("ECWA@2026");
+      });
+      return merged;
+    }
+  } catch (e) {}
+  return clone(DEFAULT);
+}
+
+function saveDB() {
+  try {
+    const clean = clone(DB);
+    clean.users.forEach(u => { delete u.password; });
+    localStorage.setItem(KEY, JSON.stringify(clean));
+  } catch (e) {
+    console.error("Storage error", e);
+    toast("Unable to save data (storage full or blocked).");
+  }
+}
+
+function uid(prefix) {
+  return (prefix || "ID") + "_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8);
+}
+
+function esc(v) {
+  return String(v ?? "").replace(/[&<>"']/g, m =>
+    ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+
+function money(n) {
+  return "₦" + Number(n || 0).toLocaleString("en-NG");
+}
+
+function cls(id) { return DB.classes.find(x => x.id === id) || null; }
+function student(id) { return DB.students.find(x => x.id === id) || null; }
+function subject(id) { return DB.subjects.find(x => x.id === id) || null; }
+function user(id) { return DB.users.find(x => x.id === id) || null; }
+function bank(id) { return BANKS.find(x => x.id === id) || null; }
+
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.remove("hidden");
+  clearTimeout(window.__toast);
+  window.__toast = setTimeout(() => t.classList.add("hidden"), 3200);
+}
+
+function confirmDelete(msg) {
+  return window.confirm(msg || "Are you sure you want to delete this item? This action cannot be undone.");
+}
+
+function requireAuth() {
+  if (!currentUser || !currentUser.id) { logout(true); return false; }
+  const real = DB.users.find(u => u.id === currentUser.id);
+  if (!real) { logout(true); return false; }
+  return true;
+}
+
+function canAccess(page) {
+  if (!requireAuth()) return false;
+  if (DB.settings.lockMode && currentUser.role !== "developer") return false;
+  const allowed = NAV[currentUser.role] || NAV.student;
+  return allowed.some(x => x[0] === page);
+}
+
+function assertRole(roles) {
+  if (!requireAuth()) return false;
+  const list = Array.isArray(roles) ? roles : [roles];
+  if (!list.includes(currentUser.role)) { toast("Access denied."); return false; }
+  return true;
+}
+
+function getTeacherAllocations() {
+  if (!currentUser || currentUser.role !== "teacher") return [];
+  return (DB.allocations || []).filter(a => a.teacherId === currentUser.id);
+}
+
+function teacherCanScore(classId, subjectId) {
+  if (currentUser.role === "admin" || currentUser.role === "exam" || currentUser.role === "developer") return true;
+  if (currentUser.role !== "teacher") return false;
+  const form = DB.classes.find(c => c.teacherId === currentUser.id && c.id === classId);
+  if (form) return true;
+  return getTeacherAllocations().some(a => a.classId === classId && a.subjectId === subjectId);
+}
+
+function visibleStudents() {
+  if (!requireAuth()) return [];
+  if (currentUser.role === "parent" || currentUser.role === "student") {
+    return DB.students.filter(s => s.id === currentUser.studentId);
+  }
+  if (currentUser.role === "teacher") {
+    const formClass = DB.classes.find(x => x.teacherId === currentUser.id);
+    const allocClasses = new Set(getTeacherAllocations().map(a => a.classId));
+    if (formClass) allocClasses.add(formClass.id);
+    return DB.students.filter(s => allocClasses.has(s.classId));
+  }
+  return DB.students.slice();
+}
+
+function visibleClasses() {
+  if (!requireAuth()) return [];
+  if (currentUser.role === "teacher") {
+    const form = DB.classes.find(x => x.teacherId === currentUser.id);
+    const map = new Map();
+    if (form) map.set(form.id, form);
+    getTeacherAllocations().forEach(a => {
+      const c = cls(a.classId);
+      if (c) map.set(c.id, c);
+    });
+    return [...map.values()];
+  }
+  if (currentUser.role === "parent" || currentUser.role === "student") {
+    const vs = visibleStudents();
+    const map = new Map();
+    vs.forEach(s => { const c = cls(s.classId); if (c) map.set(c.id, c); });
+    return [...map.values()];
+  }
+  return DB.classes.slice();
+}
+
+function visiblePayments() {
+  if (!requireAuth()) return [];
+  if (currentUser.role === "parent" || currentUser.role === "student") {
+    return DB.payments.filter(p => p.studentId === currentUser.studentId);
+  }
+  if (currentUser.role === "teacher") return [];
+  return DB.payments.slice();
+}
+
+function visibleScores() {
+  if (!requireAuth()) return [];
+  const vs = visibleStudents().map(s => s.id);
+  return DB.scores.filter(x => vs.includes(x.studentId));
+}
+
+function staffUsers() {
+  return DB.users.filter(u => ["teacher","exam","bursary","admin"].includes(u.role) && u.salary > 0);
+}
+
+function getAttendancePercent(studentId) {
+  const records = DB.attendance.filter(a => a.studentId === studentId);
+  if (!records.length) return "—";
+  const present = records.filter(a => a.status === "Present").length;
+  return Math.round((present / records.length) * 100) + "%";
+}
+
+function login() {
+  const username = document.getElementById("loginUser").value.trim();
+  const password = document.getElementById("loginPass").value;
+  const err = document.getElementById("loginError");
+  const maint = document.getElementById("maintMsg");
+  err.classList.add("hidden");
+  maint.classList.add("hidden");
+  if (!username || !password) { err.textContent = "Enter username and password."; err.classList.remove("hidden"); return; }
+  if (DB.settings.portalStatus === "maintenance" && username.toLowerCase() !== "mchiave") {
+    maint.textContent = DB.settings.maintMessage || "Portal is under maintenance. Please try again later.";
+    maint.classList.remove("hidden");
+    return;
+  }
+  const u = DB.users.find(x => x.username.toLowerCase() === username.toLowerCase());
+  if (!u || u.passwordHash !== hashPassword(password)) {
+    DB.failedLogins = DB.failedLogins || [];
+    DB.failedLogins.push({ user: username, date: new Date().toISOString() });
+    if (DB.failedLogins.length > 50) DB.failedLogins = DB.failedLogins.slice(-50);
+    saveDB();
+    err.textContent = "Invalid username or password.";
+    err.classList.remove("hidden");
+    return;
+  }
+  if (DB.settings.lockMode && u.role !== "developer") {
+    err.textContent = "Portal locked. Only Developer can login.";
+    err.classList.remove("hidden");
+    return;
+  }
+  currentUser = { id:u.id, name:u.name, username:u.username, role:u.role, studentId:u.studentId||null, classId:u.classId||null, mustChange:!!u.mustChange };
+  try { sessionStorage.setItem(SESSION_KEY, JSON.stringify({ id:currentUser.id, ts:Date.now() })); } catch(e){}
+  logAction(`${u.username} logged in`);
+  if (u.mustChange) { openPasswordChange(true); return; }
+  startApp();
+}
+
+function restoreSession() {
+  try {
+    const s = sessionStorage.getItem(SESSION_KEY);
+    if (!s) return;
+    const data = JSON.parse(s);
+    const timeoutMs = (DB.settings.sessionTimeout || 8) * 60 * 60 * 1000;
+    if (!data.id || !data.ts || (Date.now() - data.ts > timeoutMs)) { sessionStorage.removeItem(SESSION_KEY); return; }
+    const real = DB.users.find(x => x.id === data.id);
+    if (!real) { sessionStorage.removeItem(SESSION_KEY); return; }
+    if (DB.settings.lockMode && real.role !== "developer") { sessionStorage.removeItem(SESSION_KEY); return; }
+    if (DB.settings.portalStatus === "maintenance" && real.role !== "developer") return;
+    currentUser = { id:real.id, name:real.name, username:real.username, role:real.role, studentId:real.studentId||null, classId:real.classId||null, mustChange:!!real.mustChange };
+    if (real.mustChange) { openPasswordChange(true); return; }
+    startApp();
+  } catch(e){ sessionStorage.removeItem(SESSION_KEY); }
+}
+
+function logout(silent) {
+  if (currentUser) logAction(`${currentUser.username} logged out`);
+  sessionStorage.removeItem(SESSION_KEY);
+  currentUser = null; selectedClass = null; classUnlocked = false; selectedBankId = null;
+  document.body.classList.remove("dev-mode");
+  document.getElementById("devModeBadge").classList.add("hidden");
+  document.getElementById("app").style.display = "none";
+  document.getElementById("loginPage").style.display = "flex";
+  document.getElementById("loginUser").value = "";
+  document.getElementById("loginPass").value = "";
+  document.getElementById("nav").innerHTML = "";
+  document.getElementById("userPill").textContent = "";
+  document.getElementById("chatbotFab").classList.add("hidden");
+  document.getElementById("chatbotPanel").classList.add("hidden");
+  if (!silent) toast("Logged out securely.");
+}
+
+function openPasswordChange(force) {
+  openModal("Change Password", `
+    <div class="success">For security, set a strong personal password before continuing.</div>
+    <div class="field"><label>New Password (min 6 characters)</label>
+      <div class="pw-wrap"><input id="newPass" type="password" autocomplete="new-password"><button type="button" class="pw-toggle" data-target="newPass">👁️</button></div>
+    </div>
+    <div class="field"><label>Confirm Password</label>
+      <div class="pw-wrap"><input id="newPass2" type="password" autocomplete="new-password"><button type="button" class="pw-toggle" data-target="newPass2">👁️</button></div>
+    </div>
+    <div class="form-actions"><button class="btn" id="changePassBtn" type="button">Save Password</button></div>
+  `);
+  document.getElementById("changePassBtn").onclick = () => changePassword(force);
+  bindPwToggles();
+}
+
+function changePassword(force) {
+  const a = document.getElementById("newPass").value;
+  const b = document.getElementById("newPass2").value;
+  if (a.length < 6) return toast("Password must contain at least 6 characters.");
+  if (a !== b) return toast("Passwords do not match.");
+  if (!requireAuth()) return;
+  const u = DB.users.find(x => x.id === currentUser.id);
+  if (!u) return logout(true);
+  u.passwordHash = hashPassword(a); u.mustChange = false; currentUser.mustChange = false;
+  saveDB();
+  try { sessionStorage.setItem(SESSION_KEY, JSON.stringify({ id:currentUser.id, ts:Date.now() })); } catch(e){}
+  closeModal();
+  if (force) startApp();
+  toast("Password changed successfully.");
+}
+
+function openForgotPassword() {
+  openModal("Forgot Password", `
+    <div class="field"><label>Username</label><input id="fpUser" placeholder="Enter your username"></div>
+    <div class="field"><label>Registered Phone / Email (for verification)</label><input id="fpContact" placeholder="Phone or email on record"></div>
+    <p style="font-size:12px;color:#64748b;margin:10px 0">A temporary password will be generated. Contact the school admin if you cannot recover access.</p>
+    <div class="form-actions"><button class="btn" id="fpSubmit" type="button">Request Reset</button></div>
+  `);
+  document.getElementById("fpSubmit").onclick = () => {
+    const un = document.getElementById("fpUser").value.trim().toLowerCase();
+    const u = DB.users.find(x => x.username.toLowerCase() === un);
+    if (!u) return toast("Username not found.");
+    const temp = "TEMP" + Math.floor(1000 + Math.random()*9000);
+    u.passwordHash = hashPassword(temp);
+    u.mustChange = true;
+    saveDB();
+    DB.notifications.push({id:uid("NTF"),title:"Password Reset",message:`Temporary password for ${u.username}: ${temp}. Change immediately after login.`,date:new Date().toISOString(),audience:"admin"});
+    saveDB();
+    closeModal();
+    toast("Temporary password generated. Check with admin or use: " + temp);
+  };
+}
+
+function bindPwToggles() {
+  document.querySelectorAll(".pw-toggle").forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.dataset.target || (btn.id === "toggleLoginPass" ? "loginPass" : null);
+      const inp = id ? document.getElementById(id) : btn.previousElementSibling;
+      if (!inp) return;
+      inp.type = inp.type === "password" ? "text" : "password";
+      btn.textContent = inp.type === "password" ? "👁️" : "🙈";
+    };
+  });
+}
+
+const NAV = {
+  developer: [
+    ["developer","⚙️","Dev Dashboard"],["dashboard","📊","Overview"],["students","👨‍🎓","Students"],
+    ["teachers","👨‍🏫","Staff"],["allocations","📚","Subject Alloc"],["classes","🏫","Classes"],
+    ["subjects","📚","Subjects"],["attendance","🟠","Attendance"],["scores","📝","Score Entry"],
+    ["results","📄","Results"],["broadsheet","📋","Broadsheet"],["bursary","💰","Bursary"],
+    ["payroll","💳","Payroll"],["users","🔐","Users"],["assignments","📌","Assignments"],
+    ["notifications","🔔","Notifications"],["settings","⚙️","Settings"],["profile","👤","Profile"]
+  ],
+  admin: [
+    ["dashboard","📊","Dashboard"],["students","👨‍🎓","Students"],["teachers","👨‍🏫","Staff"],
+    ["allocations","📚","Subject Alloc"],["classes","🏫","Classes"],["subjects","📚","Subjects"],
+    ["attendance","🟠","Attendance"],["scores","📝","Score Entry"],["results","📄","Results"],
+    ["broadsheet","📋","Broadsheet"],["bursary","💰","Bursary Fees"],["payroll","💳","Payroll & Vouchers"],
+    ["users","🔐","Users"],["assignments","📌","Assignments"],["notifications","🔔","Notifications"],
+    ["settings","⚙️","Settings"],["profile","👤","Profile"]
+  ],
+  teacher: [
+    ["dashboard","📊","Dashboard"],["classes","🏫","My Classes"],["students","👨‍🎓","Students"],
+    ["attendance","🟠","Attendance"],["scores","📝","Score Entry"],["results","📄","Report Cards"],
+    ["broadsheet","📋","Broadsheet"],["assignments","📌","Assignments"],["notifications","🔔","Notifications"],["profile","👤","Profile"]
+  ],
+  exam: [
+    ["dashboard","📊","Dashboard"],["students","👨‍🎓","Students"],["classes","🏫","Classes"],
+    ["subjects","📚","Subjects"],["scores","📝","Result Entry"],["results","📄","Results"],
+    ["broadsheet","📋","Broadsheet"],["notifications","🔔","Notifications"],["profile","👤","Profile"]
+  ],
+  bursary: [
+    ["dashboard","📊","Dashboard"],["students","👨‍🎓","Students"],["bursary","💰","Bursary Fees"],
+    ["payroll","💳","Payroll & Vouchers"],["notifications","🔔","Notifications"],["profile","👤","Profile"]
+  ],
+  parent: [
+    ["dashboard","📊","Dashboard"],["results","📄","Report Card"],["attendance","🟠","Attendance"],
+    ["bursary","💰","Fees & Receipts"],["assignments","📌","Assignments"],
+    ["notifications","🔔","Notifications"],["profile","👤","Profile"]
+  ],
+  student: [
+    ["dashboard","📊","Dashboard"],["results","📄","Results"],["attendance","🟠","Attendance"],
+    ["assignments","📌","Assignments"],["notifications","🔔","Notifications"],["profile","👤","Profile"]
+  ]
+};
+
+const ROLE_NAMES = {
+  developer:"Developer", admin:"Administrator", teacher:"Teacher", exam:"Exam Officer",
+  bursary:"Bursary Officer", parent:"Parent", student:"Student"
+};
+
+function startApp() {
+  if (!requireAuth()) return;
+  document.getElementById("loginPage").style.display = "none";
+  document.getElementById("app").style.display = "block";
+  if (currentUser.role === "developer") {
+    document.body.classList.add("dev-mode");
+    document.getElementById("devModeBadge").classList.remove("hidden");
+  } else {
+    document.body.classList.remove("dev-mode");
+    document.getElementById("devModeBadge").classList.add("hidden");
+  }
+  buildNav(); updateBrand(); showPage(currentUser.role === "developer" ? "developer" : "dashboard");
+  initChatbot();
+}
+
+function buildNav() {
+  const nav = document.getElementById("nav");
+  nav.innerHTML = "";
+  const items = NAV[currentUser.role] || NAV.student;
+  items.forEach(n => {
+    const b = document.createElement("button");
+    b.className = "nav-btn"; b.type = "button"; b.dataset.page = n[0];
+    b.innerHTML = `<span>${n[1]}</span>${n[2]}`;
+    b.onclick = () => showPage(n[0]);
+    nav.appendChild(b);
+  });
+  document.getElementById("userPill").textContent = `${currentUser.name} • ${ROLE_NAMES[currentUser.role]||currentUser.role}`;
+  document.getElementById("roleBadge").textContent = ROLE_NAMES[currentUser.role]||currentUser.role;
+}
+
+function showPage(page) {
+  if (!canAccess(page)) { toast("You do not have permission to view this page."); return; }
+  document.querySelectorAll(".page").forEach(x => x.classList.remove("active"));
+  const el = document.getElementById("page-" + page);
+  if (!el) return;
+  el.classList.add("active");
+  document.querySelectorAll(".nav-btn").forEach(x => x.classList.toggle("active", x.dataset.page === page));
+  const title = (NAV[currentUser.role]||[]).find(x => x[0]===page)?.[2] || page;
+  document.getElementById("currentPageTitle").textContent = title;
+  renderPage(page);
+  if (window.innerWidth < 960) document.getElementById("sidebar").classList.remove("open");
+}
+
+function renderPage(page) {
+  if (!canAccess(page)) return;
+  switch(page){
+    case "dashboard": updateDashboard(); break;
+    case "developer": if(assertRole("developer")) renderDeveloper(); break;
+    case "students": renderStudents(); break;
+    case "teachers": if(assertRole(["admin","developer"])) renderTeachers(); break;
+    case "allocations": if(assertRole(["admin","developer"])) renderAllocations(); break;
+    case "classes": renderClasses(); break;
+    case "subjects": if(assertRole(["admin","exam","developer"])) renderSubjects(); break;
+    case "attendance": setupAttendance(); break;
+    case "scores": if(assertRole(["admin","teacher","exam","developer"])) setupScores(); break;
+    case "results": setupResults(); break;
+    case "broadsheet": setupBroadsheet(); break;
+    case "bursary": if(assertRole(["admin","bursary","parent","student","developer"])) renderBursary(); break;
+    case "payroll": if(assertRole(["admin","bursary","developer"])) renderPayroll(); break;
+    case "users": if(assertRole(["admin","developer"])) renderUsers(); break;
+    case "settings": if(assertRole(["admin","developer"])) renderSettings(); break;
+    case "assignments": renderAssignments(); break;
+    case "notifications": renderNotifications(); break;
+    case "profile": renderProfile(); break;
+  }
+}
+
+function toggleSidebar() {
+  const s = document.getElementById("sidebar");
+  if (window.innerWidth < 960) s.classList.toggle("open");
+  else { s.classList.toggle("closed"); document.getElementById("content").classList.toggle("full"); }
+}
+
+function defaultLogo() {
+  return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+      <rect width="200" height="200" rx="100" fill="#0D47A1"/>
+      <text x="100" y="118" text-anchor="middle" fill="white" font-size="58" font-family="Arial,sans-serif" font-weight="bold">SE</text>
+    </svg>`);
+}
+
+function updateBrand() {
+  const logo = DB.settings.logo || defaultLogo();
+  document.getElementById("loginLogo").src = logo;
+  document.getElementById("topLogo").src = logo;
+  document.title = (DB.settings.schoolName || "School") + " – Super Tier-3 Pro";
+}
+
+function updateDashboard() {
+  if (!requireAuth()) return;
+  const students = visibleStudents();
+  const classes = visibleClasses();
+  const payments = visiblePayments();
+  document.getElementById("statStudents").textContent = students.length;
+  document.getElementById("statTeachers").textContent =
+    ["admin","developer"].includes(currentUser.role) ? DB.users.filter(x => ["teacher","exam","bursary"].includes(x.role)).length :
+    currentUser.role === "teacher" ? "1" : "—";
+  document.getElementById("statClasses").textContent = classes.length;
+  document.getElementById("statPayments").textContent = money(payments.reduce((a,p)=>a+Number(p.amount||0),0));
+  document.getElementById("welcomeText").textContent = `Welcome, ${currentUser.name}. ${DB.settings.session} • ${DB.settings.term}`;
+  const scores = visibleScores();
+  const total = scores.length ? Math.round(scores.reduce((a,x)=>a+calcTotal(x),0)/scores.length) : 0;
+  document.getElementById("academicSummary").innerHTML = `
+    <p style="font-size:13px">Current Session: <b>${esc(DB.settings.session)}</b></p>
+    <p style="font-size:13px;margin-top:8px">Current Term: <b>${esc(DB.settings.term)}</b></p>
+    <p style="font-size:13px;margin-top:8px">Average Recorded Score: <b>${total}%</b></p>
+    <div style="height:9px;background:#e5edf7;border-radius:20px;margin-top:10px">
+      <div style="height:100%;width:${Math.min(total,100)}%;background:#1976D2;border-radius:20px"></div>
+    </div>`;
+  const notes = DB.notifications.filter(n => canSeeNotification(n)).slice(-5).reverse();
+  document.getElementById("recentNotifications").innerHTML = notes.length
+    ? notes.map(n => `<div style="padding:10px 0;border-bottom:1px solid #edf1f5"><b style="font-size:12px">${esc(n.title)}</b><p style="font-size:11px;color:#64748b;margin-top:3px">${esc(n.message)}</p></div>`).join("")
+    : "<p style='font-size:13px;color:#64748b'>No notifications.</p>";
+}
+
+function canSeeNotification(n) {
+  if (!n.audience || n.audience === "all") return true;
+  if (n.audience === currentUser.role) return true;
+  if (n.audience.startsWith("class:") && currentUser.role === "teacher") {
+    const cid = n.audience.split(":")[1];
+    return visibleClasses().some(c => c.id === cid);
+  }
+  if ((currentUser.role === "parent" || currentUser.role === "student") && n.audience.startsWith("class:")) {
+    const cid = n.audience.split(":")[1];
+    return visibleStudents().some(s => s.classId === cid);
+  }
+  return false;
+}
+
+function getStorageSize() {
+  try {
+    const raw = localStorage.getItem(KEY) || "";
+    return (raw.length * 2 / 1024).toFixed(1);
+  } catch(e) { return "0"; }
+}
+
+function renderDeveloper() {
+  if (!assertRole("developer")) return;
+  const size = getStorageSize();
+  const max = 5120;
+  const pct = Math.min(100, (parseFloat(size) / max) * 100);
+  document.getElementById("devStats").innerHTML = `
+    <div class="card stat"><div class="number">${size} KB</div><div class="label">Storage Used</div>
+      <div class="storage-bar"><div class="storage-fill" style="width:${pct}%"></div></div></div>
+    <div class="card stat"><div class="number">${DB.students.length}</div><div class="label">Students</div></div>
+    <div class="card stat"><div class="number">${DB.scores.length}</div><div class="label">Results / Scores</div></div>
+    <div class="card stat"><div class="number">${DB.payments.length}</div><div class="label">Payments</div></div>
+    <div class="card stat"><div class="number">${esc(DB.settings.portalStatus||"online").toUpperCase()}</div><div class="label">Portal Status</div></div>
+    <div class="card stat"><div class="number">${DB.settings.lastBackup ? new Date(DB.settings.lastBackup).toLocaleDateString() : "Never"}</div><div class="label">Last Backup</div></div>
+  `;
+  document.getElementById("devHealth").innerHTML = `
+    <p style="font-size:12px">Students: <b>${DB.students.length}</b> • Teachers: <b>${DB.users.filter(u=>u.role==="teacher").length}</b></p>
+    <p style="font-size:12px;margin-top:6px">Classes: <b>${DB.classes.length}</b> • Subjects: <b>${DB.subjects.length}</b></p>
+    <p style="font-size:12px;margin-top:6px">Scores: <b>${DB.scores.length}</b> • Payments: <b>${DB.payments.length}</b> • Announcements: <b>${DB.notifications.length}</b></p>
+    <p style="font-size:12px;margin-top:6px">Allocations: <b>${(DB.allocations||[]).length}</b> • Logs: <b>${(DB.logs||[]).length}</b></p>
+    <p style="font-size:12px;margin-top:6px">Browser: <b>${navigator.userAgent.slice(0,40)}…</b></p>
+    <p style="font-size:12px;margin-top:6px">Online: <b>${navigator.onLine ? "Yes" : "No"}</b> • Version: <b>${VERSION}</b></p>
+  `;
+  document.getElementById("devSchoolName").value = DB.settings.schoolName || "";
+  document.getElementById("devSession").value = DB.settings.session || "";
+  document.getElementById("devTerm").value = DB.settings.term || "First Term";
+  document.getElementById("devPassMark").value = DB.settings.passMark || 50;
+  document.getElementById("devTimeout").value = DB.settings.sessionTimeout || 8;
+  const logs = (DB.logs || []).slice(-30).reverse();
+  document.getElementById("devLogs").innerHTML = logs.length
+    ? logs.map(l => `<div style="padding:4px 0;border-bottom:1px solid #334155"><small>${new Date(l.date).toLocaleString()}</small> — ${esc(l.user)}: ${esc(l.msg)}</div>`).join("")
+    : "<p style='font-size:12px;color:#94a3b8'>No logs yet.</p>";
+  const byClass = {};
+  DB.payments.forEach(p => {
+    const s = student(p.studentId);
+    if (!s) return;
+    const cn = cls(s.classId)?.name || "Unknown";
+    byClass[cn] = (byClass[cn] || 0) + Number(p.amount || 0);
+  });
+  const maxP = Math.max(...Object.values(byClass), 1);
+  document.getElementById("devPayChart").innerHTML = Object.keys(byClass).length
+    ? Object.entries(byClass).map(([k,v]) => `<div class="chart-col" style="height:${Math.round((v/maxP)*100)}%"><span>${esc(k.slice(0,6))}</span></div>`).join("")
+    : "<p style='font-size:12px;color:#94a3b8'>No payment data.</p>";
+}
+
+function renderStudents() {
+  if (!requireAuth()) return;
+  const q = (document.getElementById("studentSearch")?.value||"").toLowerCase();
+  const filter = document.getElementById("studentClassFilter");
+  if (filter) {
+    const old = filter.value;
+    filter.innerHTML = '<option value="">All Classes</option>' + visibleClasses().map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
+    filter.value = old;
+  }
+  const cf = filter?.value || "";
+  const arr = visibleStudents().filter(s =>
+    (!q || (`${s.name} ${s.admission} ${s.parent||""}`).toLowerCase().includes(q)) && (!cf || s.classId === cf)
+  );
+  const canEdit = ["admin","developer"].includes(currentUser.role);
+  document.getElementById("studentsTable").innerHTML = arr.length ? arr.map(s => `
+    <tr>
+      <td>${esc(s.admission)}</td><td><b>${esc(s.name)}</b></td><td>${esc(s.gender)}</td>
+      <td>${esc(cls(s.classId)?.name||"—")}</td><td>${esc(s.parent||"—")}</td>
+      <td><span class="badge green">${esc(s.status||"Active")}</span></td>
+      <td>${canEdit ? `<button class="btn sm" type="button" data-edit-student="${esc(s.id)}">Edit</button> <button class="btn sm red" type="button" data-del-student="${esc(s.id)}">Delete</button>` : "View only"}</td>
+    </tr>`).join("") : `<tr><td colspan="7">No students found.</td></tr>`;
+  document.querySelectorAll("[data-edit-student]").forEach(btn => { btn.onclick = () => openStudentModal(btn.dataset.editStudent); });
+  document.querySelectorAll("[data-del-student]").forEach(btn => { btn.onclick = () => deleteStudent(btn.dataset.delStudent); });
+}
+
+function openStudentModal(id) {
+  if (!assertRole(["admin","developer"])) return;
+  const s = id ? student(id) : null;
+  openModal(s ? "Edit Student" : "Register Student", `
+    <div class="form-grid">
+      <div class="field"><label>Admission No.</label><input id="fAdmission" value="${esc(s?.admission||"")}"></div>
+      <div class="field"><label>Full Name</label><input id="fName" value="${esc(s?.name||"")}"></div>
+      <div class="field"><label>Gender</label><select id="fGender"><option ${s?.gender==="Male"?"selected":""}>Male</option><option ${s?.gender==="Female"?"selected":""}>Female</option></select></div>
+      <div class="field"><label>Date of Birth</label><input type="date" id="fDob" value="${esc(s?.dob||"")}"></div>
+      <div class="field"><label>Class</label><select id="fClass">${DB.classes.map(c=>`<option value="${esc(c.id)}" ${s?.classId===c.id?"selected":""}>${esc(c.name)}</option>`).join("")}</select></div>
+      <div class="field"><label>Parent/Guardian</label><input id="fParent" value="${esc(s?.parent||"")}"></div>
+      <div class="field"><label>Parent Phone</label><input id="fPhone" value="${esc(s?.phone||"")}"></div>
+      <div class="field"><label>Status</label><select id="fStatus"><option ${(!s||s.status==="Active")?"selected":""}>Active</option><option ${s?.status==="Inactive"?"selected":""}>Inactive</option></select></div>
+    </div>
+    <div class="form-actions"><button class="btn green" id="saveStudentBtn" type="button">Save</button></div>
+  `);
+  document.getElementById("saveStudentBtn").onclick = () => saveStudent(id||"");
+}
+
+function saveStudent(id) {
+  if (!assertRole(["admin","developer"])) return;
+  const admission = document.getElementById("fAdmission").value.trim();
+  const name = document.getElementById("fName").value.trim();
+  if (!admission || !name) return toast("Admission number and name are required.");
+  let s = id ? student(id) : null;
+  if (!s) { s = { id:uid("STU"), admission, name }; DB.students.push(s); }
+  else { s.admission=admission; s.name=name; }
+  s.gender = document.getElementById("fGender").value;
+  s.dob = document.getElementById("fDob").value;
+  s.classId = document.getElementById("fClass").value;
+  s.parent = document.getElementById("fParent").value.trim();
+  s.phone = document.getElementById("fPhone").value.trim();
+  s.status = document.getElementById("fStatus").value;
+  saveDB(); closeModal(); renderStudents(); updateDashboard(); logAction("Student saved: "+name); toast("Student saved.");
+}
+
+function deleteStudent(id) {
+  if (!assertRole(["admin","developer"])) return;
+  if (!confirmDelete("Delete this student and all related scores/attendance/payments?")) return;
+  DB.students = DB.students.filter(s => s.id !== id);
+  DB.scores = DB.scores.filter(x => x.studentId !== id);
+  DB.attendance = DB.attendance.filter(x => x.studentId !== id);
+  DB.payments = DB.payments.filter(x => x.studentId !== id);
+  saveDB(); renderStudents(); updateDashboard(); logAction("Student deleted: "+id); toast("Student deleted.");
+}
+
+function renderTeachers() {
+  if (!assertRole(["admin","developer"])) return;
+  const arr = DB.users.filter(u => ["teacher","exam","bursary"].includes(u.role));
+  document.getElementById("teachersTable").innerHTML = arr.map(u => {
+    const c = DB.classes.find(x => x.teacherId === u.id);
+    const b = bank(u.bankId);
+    return `<tr>
+      <td>${esc(u.name)}</td><td>${esc(u.username)}</td>
+      <td>${esc(c?.name || "—")}</td>
+      <td><b>${money(u.salary||0)}</b></td>
+      <td>${esc(b?.name||"—")}<br><small>${esc(u.accountNo||"")}</small></td>
+      <td><span class="badge green">Active</span></td>
+      <td><button class="btn sm" type="button" data-edit-teacher="${esc(u.id)}">Edit</button> <button class="btn sm red" type="button" data-del-teacher="${esc(u.id)}">Delete</button></td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="7">No staff.</td></tr>`;
+  document.querySelectorAll("[data-edit-teacher]").forEach(btn => { btn.onclick = () => openTeacherModal(btn.dataset.editTeacher); });
+  document.querySelectorAll("[data-del-teacher]").forEach(btn => { btn.onclick = () => deleteTeacher(btn.dataset.delTeacher); });
+}
+
+function openTeacherModal(id) {
+  if (!assertRole(["admin","developer"])) return;
+  const u = id ? user(id) : null;
+  openModal(u ? "Edit Staff" : "Add Staff", `
+    <div class="form-grid">
+      <div class="field"><label>Full Name</label><input id="tName" value="${esc(u?.name||"")}"></div>
+      <div class="field"><label>Username</label><input id="tUser" value="${esc(u?.username||"")}" spellcheck="false"></div>
+      <div class="field"><label>Password</label>
+        <div class="pw-wrap"><input id="tPass" type="password" placeholder="${u?"Leave blank to keep current":"Default: ECWA@2026"}" autocomplete="new-password"><button type="button" class="pw-toggle" data-target="tPass">👁️</button></div>
+      </div>
+      <div class="field"><label>Role</label>
+        <select id="tRole">
+          <option value="teacher" ${u?.role==="teacher"?"selected":""}>Teacher</option>
+          <option value="exam" ${u?.role==="exam"?"selected":""}>Exam Officer</option>
+          <option value="bursary" ${u?.role==="bursary"?"selected":""}>Bursary</option>
+        </select>
+      </div>
+      <div class="field"><label>Assigned Class (Form Teacher)</label>
+        <select id="tClass"><option value="">Select Class</option>
+          ${DB.classes.map(c=>{ const selected = DB.classes.find(x=>x.teacherId===u?.id)?.id===c.id; return `<option value="${esc(c.id)}" ${selected?"selected":""}>${esc(c.name)}</option>`; }).join("")}
+        </select>
+      </div>
+      <div class="field"><label>Monthly Salary (₦)</label><input id="tSalary" type="number" min="0" value="${u?.salary||0}"></div>
+      <div class="field"><label>Bank</label>
+        <select id="tBank"><option value="">Select Bank</option>
+          ${BANKS.map(b=>`<option value="${esc(b.id)}" ${u?.bankId===b.id?"selected":""}>${esc(b.name)}</option>`).join("")}
+        </select>
+      </div>
+      <div class="field"><label>Account Number</label><input id="tAcct" value="${esc(u?.accountNo||"")}" placeholder="10-digit NUBAN"></div>
+      <div class="field"><label>Account Name</label><input id="tAcctName" value="${esc(u?.accountName||"")}"></div>
+    </div>
+    <div class="form-actions"><button class="btn green" id="saveTeacherBtn" type="button">Save</button></div>
+  `);
+  document.getElementById("saveTeacherBtn").onclick = () => saveTeacher(id||"");
+  bindPwToggles();
+}
+
+function saveTeacher(id) {
+  if (!assertRole(["admin","developer"])) return;
+  const name = document.getElementById("tName").value.trim();
+  const username = document.getElementById("tUser").value.trim();
+  const pass = document.getElementById("tPass").value;
+  const classId = document.getElementById("tClass").value;
+  const role = document.getElementById("tRole").value;
+  const salary = Number(document.getElementById("tSalary").value)||0;
+  const bankId = document.getElementById("tBank").value;
+  const accountNo = document.getElementById("tAcct").value.trim();
+  const accountName = document.getElementById("tAcctName").value.trim();
+  if (!name || !username) return toast("Name and username are required.");
+  let u = id ? user(id) : null;
+  if (!u) {
+    if (DB.users.some(x => x.username.toLowerCase() === username.toLowerCase())) return toast("Username already exists.");
+    u = { id:uid("USR"), name, username, passwordHash:hashPassword(pass||"ECWA@2026"), role, mustChange:!pass, salary, bankId, accountNo, accountName };
+    DB.users.push(u);
+  } else {
+    if (DB.users.some(x => x.id !== u.id && x.username.toLowerCase() === username.toLowerCase())) return toast("Username already exists.");
+    u.name=name; u.username=username; u.role=role; u.salary=salary; u.bankId=bankId; u.accountNo=accountNo; u.accountName=accountName;
+    if (pass) { u.passwordHash = hashPassword(pass); u.mustChange = false; }
+  }
+  DB.classes.forEach(c => { if (c.teacherId === u.id) c.teacherId = ""; });
+  if (classId) { const c = cls(classId); if (c) c.teacherId = u.id; }
+  saveDB(); closeModal(); renderTeachers(); renderClasses(); logAction("Staff saved: "+name); toast("Staff saved.");
+}
+
+function deleteTeacher(id) {
+  if (!assertRole(["admin","developer"])) return;
+  if (!confirmDelete("Delete this staff member?")) return;
+  DB.users = DB.users.filter(u => u.id !== id);
+  DB.classes.forEach(c => { if (c.teacherId === id) c.teacherId = ""; });
+  DB.allocations = (DB.allocations||[]).filter(a => a.teacherId !== id);
+  saveDB(); renderTeachers(); renderClasses(); toast("Staff deleted.");
+}
+
+function renderAllocations() {
+  if (!assertRole(["admin","developer"])) return;
+  const arr = DB.allocations || [];
+  document.getElementById("allocTable").innerHTML = arr.length ? arr.map(a => {
+    const t = user(a.teacherId);
+    const s = subject(a.subjectId);
+    const c = cls(a.classId);
+    return `<tr>
+      <td>${esc(t?.name||"—")}</td><td>${esc(s?.name||"—")}</td><td>${esc(c?.name||"—")}</td>
+      <td><button class="btn sm red" type="button" data-del-alloc="${esc(a.id)}">Remove</button></td>
+    </tr>`;
+  }).join("") : `<tr><td colspan="4">No subject allocations yet.</td></tr>`;
+  document.querySelectorAll("[data-del-alloc]").forEach(btn => {
+    btn.onclick = () => {
+      if (!confirmDelete("Remove this allocation?")) return;
+      DB.allocations = DB.allocations.filter(x => x.id !== btn.dataset.delAlloc);
+      saveDB(); renderAllocations(); toast("Allocation removed.");
+    };
+  });
+}
+
+function openAllocModal() {
+  if (!assertRole(["admin","developer"])) return;
+  openModal("Allocate Subject to Teacher", `
+    <div class="form-grid">
+      <div class="field"><label>Teacher</label>
+        <select id="alTeacher">${DB.users.filter(u=>u.role==="teacher").map(u=>`<option value="${esc(u.id)}">${esc(u.name)}</option>`).join("")}</select>
+      </div>
+      <div class="field"><label>Subject</label>
+        <select id="alSubject">${DB.subjects.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join("")}</select>
+      </div>
+      <div class="field"><label>Class</label>
+        <select id="alClass">${DB.classes.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("")}</select>
+      </div>
+    </div>
+    <p style="font-size:12px;color:#64748b;margin:10px 0">Teacher will only access scores for this subject in this class.</p>
+    <div class="form-actions"><button class="btn green" id="saveAllocBtn" type="button">Allocate</button></div>
+  `);
+  document.getElementById("saveAllocBtn").onclick = () => {
+    const teacherId = document.getElementById("alTeacher").value;
+    const subjectId = document.getElementById("alSubject").value;
+    const classId = document.getElementById("alClass").value;
+    if ((DB.allocations||[]).some(a => a.teacherId===teacherId && a.subjectId===subjectId && a.classId===classId)) return toast("Already allocated.");
+    DB.allocations = DB.allocations || [];
+    DB.allocations.push({ id:uid("ALC"), teacherId, subjectId, classId });
+    saveDB(); closeModal(); renderAllocations(); logAction("Subject allocated"); toast("Subject allocated.");
+  };
+}
+
+function renderClasses() {
+  if (!requireAuth()) return;
+  const arr = visibleClasses();
+  const canManage = ["admin","developer"].includes(currentUser.role);
+  document.getElementById("classCards").innerHTML = arr.map(c => {
+    const count = DB.students.filter(s => s.classId === c.id).length;
+    const t = user(c.teacherId);
+    return `<div class="card">
+      <h3 style="color:#0D47A1;font-size:16px">${esc(c.name)}</h3>
+      <p style="font-size:11px;color:#64748b">${esc(c.section)}</p>
+      <p style="font-size:12px;margin-top:10px">👨‍🎓 Students: <b>${count}</b></p>
+      <p style="font-size:12px;margin-top:5px">👨‍🏫 Form Teacher: <b>${esc(t?.name||"Not assigned")}</b></p>
+      ${canManage ? `<p style="font-size:12px;margin-top:5px">🔐 Class Password: <b>${esc(c.password)}</b></p><br><button class="btn sm" type="button" data-edit-class="${esc(c.id)}">Edit</button> <button class="btn sm red" type="button" data-del-class="${esc(c.id)}">Delete</button>` : ""}
+      ${currentUser.role==="teacher" && c.teacherId===currentUser.id ? `<br><button class="btn sm" type="button" data-enter-class="${esc(c.id)}">Enter Class</button>` : ""}
+    </div>`;
+  }).join("") || `<div class="card"><p>No classes available.</p></div>`;
+  document.querySelectorAll("[data-edit-class]").forEach(btn => { btn.onclick = () => openClassModal(btn.dataset.editClass); });
+  document.querySelectorAll("[data-del-class]").forEach(btn => { btn.onclick = () => deleteClass(btn.dataset.delClass); });
+  document.querySelectorAll("[data-enter-class]").forEach(btn => { btn.onclick = () => enterTeacherClass(btn.dataset.enterClass); });
+}
+
+function openClassModal(id) {
+  if (!assertRole(["admin","developer"])) return;
+  const c = id ? cls(id) : null;
+  openModal(c ? "Edit Class" : "Add Class", `
+    <div class="form-grid">
+      <div class="field"><label>Class Name</label><input id="cName" value="${esc(c?.name||"")}"></div>
+      <div class="field"><label>Section</label><select id="cSection"><option ${c?.section==="Nursery"?"selected":""}>Nursery</option><option ${c?.section==="Primary"?"selected":""}>Primary</option><option ${c?.section==="Secondary"?"selected":""}>Secondary</option></select></div>
+      <div class="field"><label>Class Password</label><input id="cPass" value="${esc(c?.password||"")}"></div>
+      <div class="field"><label>Assigned Form Teacher</label><select id="cTeacher"><option value="">Not assigned</option>${DB.users.filter(u=>u.role==="teacher").map(u=>`<option value="${esc(u.id)}" ${c?.teacherId===u.id?"selected":""}>${esc(u.name)}</option>`).join("")}</select></div>
+    </div>
+    <div class="form-actions"><button class="btn green" id="saveClassBtn" type="button">Save Class</button></div>
+  `);
+  document.getElementById("saveClassBtn").onclick = () => saveClass(id||"");
+}
+
+function saveClass(id) {
+  if (!assertRole(["admin","developer"])) return;
+  const name = document.getElementById("cName").value.trim();
+  if (!name) return toast("Class name is required.");
+  let c = id ? cls(id) : { id:uid("CLS") };
+  c.name = name; c.section = document.getElementById("cSection").value;
+  c.password = document.getElementById("cPass").value.trim() || "ECWA@2026";
+  c.teacherId = document.getElementById("cTeacher").value;
+  if (!id) DB.classes.push(c);
+  if (c.teacherId) DB.classes.forEach(x => { if (x.id !== c.id && x.teacherId === c.teacherId) x.teacherId = ""; });
+  saveDB(); closeModal(); renderClasses(); renderTeachers(); toast("Class saved.");
+}
+
+function deleteClass(id) {
+  if (!assertRole(["admin","developer"])) return;
+  if (!confirmDelete("Delete this class? Students will remain but class link will be cleared.")) return;
+  DB.classes = DB.classes.filter(c => c.id !== id);
+  DB.students.forEach(s => { if (s.classId === id) s.classId = ""; });
+  DB.allocations = (DB.allocations||[]).filter(a => a.classId !== id);
+  saveDB(); renderClasses(); toast("Class deleted.");
+}
+
+function enterTeacherClass(id) {
+  if (!assertRole("teacher")) return;
+  const c = cls(id);
+  if (!c || c.teacherId !== currentUser.id) return toast("This class is not assigned to you as Form Teacher.");
+  selectedClass = id; classUnlocked = false;
+  openModal("Class Security", `
+    <p style="font-size:13px;margin-bottom:12px">Enter the class password assigned by the administrator to access student records for this class.</p>
+    <div class="field"><label>Class Password</label>
+      <div class="pw-wrap"><input id="classPass" type="password" autocomplete="off"><button type="button" class="pw-toggle" data-target="classPass">👁️</button></div>
+    </div>
+    <div class="form-actions"><button class="btn" id="verifyClassBtn" type="button">Enter Class</button></div>
+  `);
+  document.getElementById("verifyClassBtn").onclick = verifyClass;
+  bindPwToggles();
+}
+
+function verifyClass() {
+  const c = cls(selectedClass);
+  if (!c || document.getElementById("classPass").value !== c.password) return toast("Incorrect class password.");
+  classUnlocked = true; closeModal(); toast(`Access granted: ${c.name}`);
+  showPage("students");
+  const f = document.getElementById("studentClassFilter");
+  if (f) { f.value = c.id; renderStudents(); }
+}
+
+function renderSubjects() {
+  if (!assertRole(["admin","exam","developer"])) return;
+  document.getElementById("subjectsTable").innerHTML = DB.subjects.map(s => `
+    <tr><td>${esc(s.name)}</td><td>${esc(s.code)}</td><td>${esc(s.section)}</td>
+    <td>${["admin","developer"].includes(currentUser.role)?`<button class="btn sm" type="button" data-edit-subject="${esc(s.id)}">Edit</button> <button class="btn sm red" type="button" data-del-subject="${esc(s.id)}">Delete</button>`:"—"}</td></tr>`).join("");
+  document.querySelectorAll("[data-edit-subject]").forEach(btn => { btn.onclick = () => openSubjectModal(btn.dataset.editSubject); });
+  document.querySelectorAll("[data-del-subject]").forEach(btn => { btn.onclick = () => deleteSubject(btn.dataset.delSubject); });
+}
+
+function openSubjectModal(id) {
+  if (!assertRole(["admin","developer"])) return;
+  const s = id ? subject(id) : null;
+  openModal(s ? "Edit Subject" : "Add Subject", `
+    <div class="form-grid">
+      <div class="field"><label>Subject Name</label><input id="subName" value="${esc(s?.name||"")}"></div>
+      <div class="field"><label>Code</label><input id="subCode" value="${esc(s?.code||"")}"></div>
+      <div class="field"><label>Section</label><select id="subSection"><option ${s?.section==="All"?"selected":""}>All</option><option ${s?.section==="Nursery"?"selected":""}>Nursery</option><option ${s?.section==="Primary"?"selected":""}>Primary</option><option ${s?.section==="Secondary"?"selected":""}>Secondary</option></select></div>
+    </div>
+    <div class="form-actions"><button class="btn green" id="saveSubjectBtn" type="button">Save</button></div>
+  `);
+  document.getElementById("saveSubjectBtn").onclick = () => saveSubject(id||"");
+}
+
+function saveSubject(id) {
+  if (!assertRole(["admin","developer"])) return;
+  const name = document.getElementById("subName").value.trim();
+  const code = document.getElementById("subCode").value.trim();
+  if (!name || !code) return toast("Subject name and code are required.");
+  let s = id ? subject(id) : { id:uid("SUB") };
+  s.name=name; s.code=code; s.section=document.getElementById("subSection").value;
+  if (!id) DB.subjects.push(s);
+  saveDB(); closeModal(); renderSubjects(); toast("Subject saved.");
+}
+
+function deleteSubject(id) {
+  if (!assertRole(["admin","developer"])) return;
+  if (!confirmDelete("Delete this subject and related scores?")) return;
+  DB.subjects = DB.subjects.filter(s => s.id !== id);
+  DB.scores = DB.scores.filter(x => x.subjectId !== id);
+  DB.allocations = (DB.allocations||[]).filter(a => a.subjectId !== id);
+  saveDB(); renderSubjects(); toast("Subject deleted.");
+}
+
+function setupAttendance() {
+  if (!requireAuth()) return;
+  const select = document.getElementById("attendanceClass");
+  const old = select.value;
+  select.innerHTML = visibleClasses().map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
+  if (old && [...select.options].some(o=>o.value===old)) select.value = old;
+  const dateEl = document.getElementById("attendanceDate");
+  if (!dateEl.value) dateEl.value = new Date().toISOString().slice(0,10);
+  renderAttendance();
+}
+
+function renderAttendance() {
+  if (!requireAuth()) return;
+  const cid = document.getElementById("attendanceClass").value;
+  const date = document.getElementById("attendanceDate").value;
+  const arr = visibleStudents().filter(s => s.classId === cid);
+  const canEdit = ["admin","teacher","developer"].includes(currentUser.role);
+  document.getElementById("attendanceTable").innerHTML = arr.length ? arr.map(s => {
+    const a = DB.attendance.find(x => x.studentId===s.id && x.date===date);
+    const status = a?.status || "Present";
+    const pct = getAttendancePercent(s.id);
+    if (canEdit) return `<tr><td>${esc(s.admission)}</td><td>${esc(s.name)}</td><td>${esc(cls(s.classId)?.name||"—")}</td>
+      <td><select class="attendance-status" data-id="${esc(s.id)}"><option value="Present" ${status==="Present"?"selected":""}>Present</option><option value="Absent" ${status==="Absent"?"selected":""}>Absent</option></select></td>
+      <td><b>${pct}</b></td></tr>`;
+    return `<tr><td>${esc(s.admission)}</td><td>${esc(s.name)}</td><td>${esc(cls(s.classId)?.name||"—")}</td>
+      <td><span class="badge ${status==="Present"?"green":"red"}">${esc(status)}</span></td><td><b>${pct}</b></td></tr>`;
+  }).join("") : `<tr><td colspan="5">No students in this class.</td></tr>`;
+}
+
+function saveAttendance() {
+  if (!assertRole(["admin","teacher","developer"])) return;
+  const cid = document.getElementById("attendanceClass").value;
+  const date = document.getElementById("attendanceDate").value;
+  if (!cid || !date) return toast("Select class and date.");
+  document.querySelectorAll(".attendance-status").forEach(el => {
+    const sid = el.dataset.id;
+    if (!visibleStudents().some(s => s.id === sid)) return;
+    let a = DB.attendance.find(x => x.studentId===sid && x.date===date);
+    if (!a) { a = { id:uid("ATT"), studentId:sid, date, classId:cid, status:el.value }; DB.attendance.push(a); }
+    else { a.status = el.value; a.classId = cid; }
+  });
+  saveDB(); renderAttendance(); logAction("Attendance saved"); toast("Attendance saved.");
+}
+
+function setupScores() {
+  if (!assertRole(["admin","teacher","exam","developer"])) return;
+  const cs = document.getElementById("scoreClass");
+  const ss = document.getElementById("scoreSubject");
+  const oldC = cs.value, oldS = ss.value;
+  cs.innerHTML = visibleClasses().map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
+  let subs = DB.subjects;
+  if (currentUser.role === "teacher") {
+    const form = DB.classes.find(c => c.teacherId === currentUser.id);
+    const allowed = new Set();
+    getTeacherAllocations().forEach(a => allowed.add(a.subjectId));
+    if (form) DB.subjects.forEach(s => allowed.add(s.id));
+    subs = DB.subjects.filter(s => allowed.has(s.id));
+  }
+  ss.innerHTML = subs.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join("");
+  if (oldC && [...cs.options].some(o=>o.value===oldC)) cs.value = oldC;
+  if (oldS && [...ss.options].some(o=>o.value===oldS)) ss.value = oldS;
+  renderScores();
+}
+
+function renderScores() {
+  if (!assertRole(["admin","teacher","exam","developer"])) return;
+  const cid = document.getElementById("scoreClass").value;
+  const sid = document.getElementById("scoreSubject").value;
+  if (currentUser.role === "teacher" && !teacherCanScore(cid, sid)) {
+    document.getElementById("scoresTable").innerHTML = `<tr><td colspan="9">You are not allocated to this subject/class.</td></tr>`;
+    return;
+  }
+  const arr = visibleStudents().filter(s => s.classId === cid);
+  document.getElementById("scoresTable").innerHTML = arr.length ? arr.map(s => {
+    const x = DB.scores.find(v => v.studentId===s.id && v.subjectId===sid && v.session===DB.settings.session && v.term===DB.settings.term) || {};
+    const total = calcTotal(x);
+    return `<tr>
+      <td>${esc(s.admission)}</td><td><b>${esc(s.name)}</b></td>
+      <td><input class="score" data-s="${esc(s.id)}" data-k="ca1" type="number" min="0" max="20" value="${val(x.ca1)}"></td>
+      <td><input class="score" data-s="${esc(s.id)}" data-k="ca2" type="number" min="0" max="20" value="${val(x.ca2)}"></td>
+      <td><input class="score" data-s="${esc(s.id)}" data-k="ca3" type="number" min="0" max="20" value="${val(x.ca3)}"></td>
+      <td><input class="score" data-s="${esc(s.id)}" data-k="exam" type="number" min="0" max="40" value="${val(x.exam)}"></td>
+      <td><b id="total-${esc(s.id)}">${total}</b></td>
+      <td id="grade-${esc(s.id)}">${grade(total)}</td>
+      <td id="remark-${esc(s.id)}">${remark(total)}</td>
+    </tr>`;
+  }).join("") : `<tr><td colspan="9">No students in this class.</td></tr>`;
+  document.querySelectorAll(".score").forEach(i => {
+    i.addEventListener("input", () => {
+      const sid2 = i.dataset.s;
+      const row = [...document.querySelectorAll(`.score[data-s="${sid2}"]`)];
+      const x = {}; row.forEach(a => { x[a.dataset.k] = Number(a.value)||0; });
+      const t = calcTotal(x);
+      const totEl = document.getElementById("total-"+sid2);
+      const grdEl = document.getElementById("grade-"+sid2);
+      const remEl = document.getElementById("remark-"+sid2);
+      if (totEl) totEl.textContent = t;
+      if (grdEl) grdEl.textContent = grade(t);
+      if (remEl) remEl.textContent = remark(t);
+    });
+  });
+}
+
+function val(v){ return (v===undefined||v===null)?"":v; }
+function calcTotal(x){ return Math.min(100,(Number(x.ca1)||0)+(Number(x.ca2)||0)+(Number(x.ca3)||0)+(Number(x.exam)||0)); }
+function grade(t){ if(t>=80)return"A1";if(t>=75)return"B2";if(t>=70)return"B3";if(t>=65)return"C4";if(t>=60)return"C5";if(t>=55)return"C6";if(t>=50)return"D7";if(t>=45)return"E8";return"F9"; }
+function remark(t){ const pm = DB.settings.passMark||50; if(t>=80)return"Excellent";if(t>=70)return"Very Good";if(t>=60)return"Good";if(t>=pm)return"Pass";return"Needs Improvement"; }
+
+function domainRemark(avg, domains) {
+  const d = domains || {};
+  const parts = [];
+  if (avg >= 70) parts.push("Strong academic performance");
+  else if (avg >= 50) parts.push("Satisfactory academic performance");
+  else parts.push("Needs academic improvement");
+  DOMAIN_KEYS.forEach(k => {
+    if (d[k] === "Excellent" || d[k] === "Good") parts.push(k.replace(/^\w/,c=>c.toUpperCase()) + " noted positively");
+  });
+  return parts.join("; ") + ".";
+}
+
+function saveScores() {
+  if (!assertRole(["admin","teacher","exam","developer"])) return;
+  if (DB.settings.resultLock==="locked" && !["admin","developer"].includes(currentUser.role)) return toast("Results are locked by the administrator.");
+  const cid = document.getElementById("scoreClass").value;
+  const sid = document.getElementById("scoreSubject").value;
+  if (currentUser.role === "teacher" && !teacherCanScore(cid, sid)) return toast("Not allocated to this subject/class.");
+  const allowedIds = new Set(visibleStudents().map(s=>s.id));
+  document.querySelectorAll(".score").forEach(i => {
+    const st = i.dataset.s;
+    if (!allowedIds.has(st)) return;
+    let x = DB.scores.find(v => v.studentId===st && v.subjectId===sid && v.session===DB.settings.session && v.term===DB.settings.term);
+    if (!x) { x={id:uid("SCR"),studentId:st,subjectId:sid,classId:cid,session:DB.settings.session,term:DB.settings.term}; DB.scores.push(x); }
+    let v = Math.max(0, Number(i.value)||0);
+    if (i.dataset.k==="ca1"||i.dataset.k==="ca2"||i.dataset.k==="ca3") v=Math.min(20,v);
+    if (i.dataset.k==="exam") v=Math.min(40,v);
+    x[i.dataset.k]=v;
+  });
+  saveDB(); renderScores(); logAction("Scores saved"); toast("Scores saved successfully.");
+}
+
+function setupResults() {
+  if (!requireAuth()) return;
+  const cs = document.getElementById("resultClass");
+  const oldC = cs.value;
+  cs.innerHTML = visibleClasses().map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
+  if (oldC && [...cs.options].some(o=>o.value===oldC)) cs.value = oldC;
+  updateResultStudents(); renderResults();
+}
+
+function updateResultStudents() {
+  const cid = document.getElementById("resultClass").value;
+  const ss = document.getElementById("resultStudent");
+  const old = ss.value;
+  const list = visibleStudents().filter(s => s.classId === cid);
+  ss.innerHTML = list.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}</option>`).join("");
+  if (old && [...ss.options].some(o=>o.value===old)) ss.value = old;
+}
+
+function renderResults() {
+  if (!requireAuth()) return;
+  const sid = document.getElementById("resultStudent").value;
+  if (!sid) { document.getElementById("reportContainer").innerHTML = "<div class='card'>No student selected.</div>"; return; }
+  if (!visibleStudents().some(s => s.id === sid)) { document.getElementById("reportContainer").innerHTML = "<div class='card'>Access denied to this student record.</div>"; return; }
+  const s = student(sid); if (!s) return;
+  const scores = DB.scores.filter(x => x.studentId===sid && x.session===DB.settings.session && x.term===DB.settings.term);
+  const rows = DB.subjects.map(sub => {
+    const x = scores.find(v => v.subjectId === sub.id);
+    if (!x) return null;
+    const t = calcTotal(x);
+    const position = subjectPosition(s, sub.id);
+    return `<tr><td>${esc(sub.name)}</td><td>${x.ca1||0}</td><td>${x.ca2||0}</td><td>${x.ca3||0}</td><td>${x.exam||0}</td><td><b>${t}</b></td><td>${grade(t)}</td><td>${remark(t)}</td><td>${position}</td></tr>`;
+  }).filter(Boolean).join("");
+  const avg = scores.length ? Math.round(scores.reduce((a,x)=>a+calcTotal(x),0)/scores.length) : 0;
+  const present = DB.attendance.filter(x => x.studentId===sid && x.status==="Present").length;
+  const absent = DB.attendance.filter(x => x.studentId===sid && x.status==="Absent").length;
+  const attPct = (present + absent) ? Math.round((present / (present + absent)) * 100) : 0;
+  const position = classPosition(s);
+  const domKey = sid + "_" + DB.settings.session + "_" + DB.settings.term;
+  const domains = DB.domains[domKey] || {};
+  DOMAIN_KEYS.forEach(k => { if (!domains[k]) domains[k] = "Good"; });
+  const teacherRemark = domainRemark(avg, domains);
+  const likertOpts = ["Excellent","Good","Fair","Poor"];
+  const domainHtml = DOMAIN_KEYS.map(k => {
+    const label = k.charAt(0).toUpperCase() + k.slice(1);
+    return `<div><b>${label}:</b> ${esc(domains[k]||"Good")}</div>`;
+  }).join("");
+  const sigT = DB.settings.sigTeacher ? `<img class="sig-img" src="${DB.settings.sigTeacher}" alt="Teacher Signature">` : "";
+  const sigP = DB.settings.sigPrincipal ? `<img class="sig-img" src="${DB.settings.sigPrincipal}" alt="Principal Signature">` : "";
+  document.getElementById("reportContainer").innerHTML = `
+    <div class="report-card" id="printReport">
+      <div class="report-head">
+        <img src="${DB.settings.logo||defaultLogo()}" alt="">
+        <h1>${esc(DB.settings.schoolName)}</h1>
+        <p>${esc(DB.settings.address)}</p>
+        <p><b>${esc(DB.settings.motto)}</b></p>
+        <h3 style="margin-top:10px;font-size:15px">STUDENT REPORT CARD</h3>
+      </div>
+      <div class="student-info">
+        <div><b>Name:</b><br>${esc(s.name)}</div>
+        <div><b>Admission No:</b><br>${esc(s.admission)}</div>
+        <div><b>Class:</b><br>${esc(cls(s.classId)?.name||"—")}</div>
+        <div><b>Gender:</b><br>${esc(s.gender)}</div>
+        <div><b>DOB:</b><br>${esc(s.dob||"—")}</div>
+        <div><b>Session:</b><br>${esc(DB.settings.session)}</div>
+        <div><b>Term:</b><br>${esc(DB.settings.term)}</div>
+        <div><b>Class Position:</b><br>${position}</div>
+      </div>
+      <div class="table-wrap"><table class="report-table">
+        <thead><tr><th>Subject</th><th>CA1<br>/20</th><th>CA2<br>/20</th><th>CA3<br>/20</th><th>Exam<br>/40</th><th>Total<br>/100</th><th>Grade</th><th>Remark</th><th>Pos.</th></tr></thead>
+        <tbody>${rows||`<tr><td colspan="9">No result has been entered.</td></tr>`}</tbody>
+      </table></div>
+      <div class="grid3" style="margin-top:14px">
+        <div class="card"><b>Average</b><br>${avg}%</div>
+        <div class="card"><b>Present</b><br>${present} days (${attPct}%)</div>
+        <div class="card"><b>Absent</b><br>${absent} days</div>
+      </div>
+      <div class="comment"><b>Affective / Psychomotor Domain Assessment (4-point Likert):</b>
+        <div class="grid2" style="margin-top:8px;font-size:11px">${domainHtml}</div>
+      </div>
+      <div class="comment"><b>Class Teacher's Remark:</b> ${esc(teacherRemark)}</div>
+      <div class="comment"><b>Principal / Head Teacher's Comment:</b> Continue to improve in all areas of school life.</div>
+      <p style="font-size:11px;margin-top:12px"><b>Next Term Begins:</b> ____________________</p>
+      <div class="signature">
+        <div>${sigT}<br>Class Teacher Signature</div>
+        <div>${sigP}<br>Head / Principal Signature</div>
+      </div>
+    </div>
+    ${["admin","teacher","exam","developer"].includes(currentUser.role) ? `
+    <div class="card no-print" style="margin-top:16px">
+      <h3 style="font-size:14px;margin-bottom:10px">Update Domain Assessment (Likert Scale)</h3>
+      <div class="form-grid">
+        ${DOMAIN_KEYS.map(k => {
+          const label = k.charAt(0).toUpperCase() + k.slice(1);
+          return `<div class="field"><label>${label}</label><select id="dom_${k}">${likertOpts.map(o=>`<option ${domains[k]===o?"selected":""}>${o}</option>`).join("")}</select></div>`;
+        }).join("")}
+      </div>
+      <button class="btn green" id="saveDomainBtn" type="button">Save Domain & Remark</button>
+    </div>` : ""}`;
+  const sdb = document.getElementById("saveDomainBtn");
+  if (sdb) sdb.onclick = () => {
+    const d = {};
+    DOMAIN_KEYS.forEach(k => { d[k] = document.getElementById("dom_"+k).value; });
+    DB.domains[domKey] = d;
+    saveDB(); renderResults(); toast("Domain assessment saved.");
+  };
+}
+
+function subjectPosition(st, subjectId) {
+  const classmates = DB.students.filter(s => s.classId === st.classId);
+  const scores = classmates.map(s => {
+    const x = DB.scores.find(v => v.studentId===s.id && v.subjectId===subjectId && v.session===DB.settings.session && v.term===DB.settings.term);
+    return { id:s.id, total:calcTotal(x||{}) };
+  }).sort((a,b)=>b.total-a.total);
+  const i = scores.findIndex(x => x.id === st.id);
+  return i < 0 ? "—" : (i+1);
+}
+
+function classPosition(st) {
+  const arr = DB.students.filter(s => s.classId === st.classId).map(s => {
+    const xs = DB.scores.filter(x => x.studentId===s.id && x.session===DB.settings.session && x.term===DB.settings.term);
+    const avg = xs.length ? xs.reduce((a,x)=>a+calcTotal(x),0)/xs.length : 0;
+    return { id:s.id, avg };
+  }).sort((a,b)=>b.avg-a.avg);
+  const i = arr.findIndex(x => x.id === st.id);
+  return i < 0 ? "—" : (i+1);
+}
+
+function printCurrentReport() {
+  if (document.getElementById("printReport")) window.print();
+  else toast("No report to print.");
+}
+
+function downloadReport() {
+  const el = document.getElementById("printReport");
+  if (!el) return toast("No report to download.");
+  const html = `<!DOCTYPE html><html><head><title>Report Card</title><style>body{font-family:system-ui,Arial;padding:20px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #333;padding:6px;font-size:12px}th{background:#eaf3ff}</style></head><body>${el.innerHTML}</body></html>`;
+  const blob = new Blob([html], {type:"text/html"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "Report_Card_" + (document.getElementById("resultStudent").value || "student") + ".html";
+  a.click();
+  toast("Report downloaded.");
+}
+
+function shareReport() {
+  const el = document.getElementById("printReport");
+  if (!el) return toast("No report to share.");
+  const s = student(document.getElementById("resultStudent").value);
+  const text = encodeURIComponent(`Report Card – ${s?.name || "Student"} | ${DB.settings.schoolName} | ${DB.settings.session} ${DB.settings.term}`);
+  const url = `https://wa.me/?text=${text}%0A%0APlease%20view%20the%20report%20card%20from%20the%20school%20portal.`;
+  window.open(url, "_blank");
+  toast("Opening share options…");
+}
+
+function setupBroadsheet() {
+  if (!requireAuth()) return;
+  const cs = document.getElementById("bsClass");
+  const old = cs.value;
+  cs.innerHTML = visibleClasses().map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
+  if (old && [...cs.options].some(o=>o.value===old)) cs.value = old;
+  document.getElementById("bsTerm").value = DB.settings.term;
+  loadBroadsheet();
+}
+
+function loadBroadsheet() {
+  if (!requireAuth()) return;
+  const cid = document.getElementById("bsClass").value;
+  const termSel = document.getElementById("bsTerm").value;
+  const students = visibleStudents().filter(s => s.classId === cid);
+  if (!students.length) {
+    document.getElementById("broadsheetContainer").innerHTML = "<div class='card'>No students in this class.</div>";
+    return;
+  }
+  const isCum = termSel === "cumulative";
+  const terms = isCum ? ["First Term","Second Term","Third Term"] : [termSel];
+  let html = `<div class="report-card" id="printBroadsheet"><div class="report-head">
+    <img src="${DB.settings.logo||defaultLogo()}" alt="" style="width:60px;height:60px">
+    <h1 style="font-size:18px">${esc(DB.settings.schoolName)}</h1>
+    <p>${esc(DB.settings.address)}</p>
+    <h3 style="margin-top:8px">${isCum ? "CUMULATIVE RESULT SHEET – SESSION " + esc(DB.settings.session) : "BROADSHEET – " + esc(termSel)}</h3>
+    <p>Class: <b>${esc(cls(cid)?.name||"—")}</b></p>
+  </div><div class="table-wrap"><table class="report-table"><thead><tr><th>#</th><th>Admission</th><th>Name</th>`;
+  DB.subjects.forEach(sub => { html += `<th>${esc(sub.code)}</th>`; });
+  html += `<th>Total</th><th>Avg</th><th>Pos</th></tr></thead><tbody>`;
+  const ranked = students.map(s => {
+    let grand = 0, count = 0;
+    const subTotals = {};
+    terms.forEach(term => {
+      DB.subjects.forEach(sub => {
+        const x = DB.scores.find(v => v.studentId===s.id && v.subjectId===sub.id && v.session===DB.settings.session && v.term===term);
+        const t = calcTotal(x||{});
+        subTotals[sub.id] = (subTotals[sub.id]||0) + t;
+        if (x) { grand += t; count++; }
+      });
+    });
+    const avg = count ? Math.round(grand / count) : 0;
+    return { s, subTotals, grand, avg, count };
+  }).sort((a,b)=>b.avg-a.avg);
+  ranked.forEach((r,i) => {
+    html += `<tr><td>${i+1}</td><td>${esc(r.s.admission)}</td><td><b>${esc(r.s.name)}</b></td>`;
+    DB.subjects.forEach(sub => {
+      const val = isCum ? (r.subTotals[sub.id] ? Math.round(r.subTotals[sub.id]/terms.length) : "—") : (r.subTotals[sub.id]||"—");
+      html += `<td>${val}</td>`;
+    });
+    html += `<td><b>${r.grand||"—"}</b></td><td>${r.avg}%</td><td>${i+1}</td></tr>`;
+  });
+  html += `</tbody></table></div></div>`;
+  document.getElementById("broadsheetContainer").innerHTML = html;
+}
+
+function printBroadsheet() {
+  if (document.getElementById("printBroadsheet")) window.print();
+  else toast("Load broadsheet first.");
+}
+
+function downloadBroadsheet() {
+  const el = document.getElementById("printBroadsheet");
+  if (!el) return toast("Load broadsheet first.");
+  const html = `<!DOCTYPE html><html><head><title>Broadsheet</title><style>body{font-family:system-ui;padding:16px}table{border-collapse:collapse;width:100%;font-size:11px}th,td{border:1px solid #333;padding:4px}</style></head><body>${el.innerHTML}</body></html>`;
+  const blob = new Blob([html], {type:"text/html"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "Broadsheet_" + Date.now() + ".html";
+  a.click();
+  toast("Broadsheet downloaded.");
+}
+
+function renderBursary() {
+  if (!assertRole(["admin","bursary","parent","student","developer"])) return;
+  const vs = visibleStudents();
+  const expected = vs.length * 100000;
+  const payments = visiblePayments();
+  const paid = payments.reduce((a,p)=>a+Number(p.amount||0),0);
+  document.getElementById("totalFees").textContent = money(expected);
+  document.getElementById("paidFees").textContent = money(paid);
+  document.getElementById("balanceFees").textContent = money(Math.max(0,expected-paid));
+  document.getElementById("paymentCount").textContent = payments.length;
+  const canRecord = ["admin","bursary","developer"].includes(currentUser.role);
+  document.getElementById("paymentsTable").innerHTML = payments.length
+    ? payments.slice().reverse().map(p => {
+        const s = student(p.studentId);
+        return `<tr><td>${esc(p.receipt)}</td><td>${esc(s?.name||"—")}</td><td>${money(p.amount)}</td><td>${esc(p.date)}</td><td>${esc(p.term)}</td>
+          <td>
+            <button class="btn sm" type="button" data-receipt="${esc(p.id)}">Receipt</button>
+            <button class="btn sm teal" type="button" data-dl-receipt="${esc(p.id)}">⬇</button>
+            <button class="btn sm purple" type="button" data-share-receipt="${esc(p.id)}">📤</button>
+            ${canRecord?`<button class="btn sm red" type="button" data-del-pay="${esc(p.id)}">Delete</button>`:""}
+          </td></tr>`;
+      }).join("")
+    : `<tr><td colspan="6">No payment records.</td></tr>`;
+  document.querySelectorAll("[data-receipt]").forEach(btn => { btn.onclick = () => printReceipt(btn.dataset.receipt); });
+  document.querySelectorAll("[data-dl-receipt]").forEach(btn => { btn.onclick = () => downloadReceipt(btn.dataset.dlReceipt); });
+  document.querySelectorAll("[data-share-receipt]").forEach(btn => { btn.onclick = () => shareReceipt(btn.dataset.shareReceipt); });
+  document.querySelectorAll("[data-del-pay]").forEach(btn => { btn.onclick = () => deletePayment(btn.dataset.delPay); });
+  const addBtn = document.getElementById("addPaymentBtn");
+  if (addBtn) addBtn.style.display = canRecord ? "" : "none";
+}
+
+function openPaymentModal() {
+  if (!assertRole(["admin","bursary","developer"])) return;
+  openModal("Record Fee Payment", `
+    <div class="form-grid">
+      <div class="field"><label>Student</label><select id="payStudent">${DB.students.map(s=>`<option value="${esc(s.id)}">${esc(s.name)} — ${esc(s.admission)}</option>`).join("")}</select></div>
+      <div class="field"><label>Amount (₦)</label><input id="payAmount" type="number" min="1" step="1"></div>
+      <div class="field"><label>Term</label><select id="payTerm"><option>First Term</option><option>Second Term</option><option>Third Term</option></select></div>
+      <div class="field"><label>Payment Method</label><select id="payMethod"><option>Cash</option><option>Bank Transfer</option><option>POS</option><option>Online</option></select></div>
+    </div>
+    <div class="form-actions"><button class="btn green" id="savePaymentBtn" type="button">Save &amp; Generate Receipt</button></div>
+  `);
+  document.getElementById("savePaymentBtn").onclick = savePayment;
+}
+
+function savePayment() {
+  if (!assertRole(["admin","bursary","developer"])) return;
+  const sid = document.getElementById("payStudent").value;
+  const amount = Number(document.getElementById("payAmount").value);
+  if (!sid || amount <= 0) return toast("Enter a valid payment.");
+  const p = { id:uid("PAY"), receipt:"REC-"+Date.now(), studentId:sid, amount, date:new Date().toISOString().slice(0,10), term:document.getElementById("payTerm").value, method:document.getElementById("payMethod").value };
+  DB.payments.push(p); saveDB(); closeModal(); renderBursary(); updateDashboard(); toast("Payment saved and receipt generated.");
+}
+
+function deletePayment(id) {
+  if (!assertRole(["admin","bursary","developer"])) return;
+  if (!confirmDelete("Delete this payment record?")) return;
+  DB.payments = DB.payments.filter(p => p.id !== id);
+  saveDB(); renderBursary(); updateDashboard(); toast("Payment deleted.");
+}
+
+function printReceipt(id) {
+  if (!requireAuth()) return;
+  const p = DB.payments.find(x => x.id === id);
+  if (!p) return;
+  if (!visiblePayments().some(x => x.id === id) && !["admin","bursary","developer"].includes(currentUser.role)) return toast("Access denied.");
+  const s = student(p.studentId); if (!s) return;
+  openModal("Payment Receipt", `
+    <div id="receipt" style="text-align:center;padding:12px">
+      <img src="${DB.settings.logo||defaultLogo()}" style="width:68px;height:68px;border-radius:50%" alt="">
+      <h2 style="color:#0D47A1;font-size:16px;margin-top:8px">${esc(DB.settings.schoolName)}</h2>
+      <p style="font-size:11px">${esc(DB.settings.address)}</p>
+      <hr style="margin:14px 0;border:none;border-top:1px solid #e2e8f0">
+      <h3 style="font-size:14px">OFFICIAL FEE RECEIPT</h3>
+      <p style="margin-top:10px">Receipt No: <b>${esc(p.receipt)}</b></p>
+      <p>Student: <b>${esc(s.name)}</b></p>
+      <p>Admission No: <b>${esc(s.admission)}</b></p>
+      <p>Amount Paid: <b>${money(p.amount)}</b></p>
+      <p>Term: ${esc(p.term)}</p>
+      <p>Date: ${esc(p.date)}</p>
+      <p>Payment Method: ${esc(p.method)}</p>
+      <br><b>Thank you.</b>
+    </div>
+    <div class="form-actions">
+      <button class="btn" id="printReceiptBtn" type="button">Print</button>
+      <button class="btn teal" id="dlReceiptBtn" type="button">Download</button>
+      <button class="btn purple" id="shareReceiptBtn" type="button">Share</button>
+    </div>
+  `);
+  window.__receiptHTML = document.getElementById("receipt").outerHTML;
+  document.getElementById("printReceiptBtn").onclick = printReceiptWindow;
+  document.getElementById("dlReceiptBtn").onclick = () => downloadReceipt(id);
+  document.getElementById("shareReceiptBtn").onclick = () => shareReceipt(id);
+}
+
+function printReceiptWindow() {
+  const w = window.open("", "_blank");
+  if (!w) return toast("Allow pop-ups to print.");
+  w.document.write(`<!DOCTYPE html><html><head><title>Receipt</title><style>body{font-family:system-ui,Arial,sans-serif;padding:28px;text-align:center}p{font-size:14px;margin:6px 0}</style></head><body>${window.__receiptHTML||""}</body></html>`);
+  w.document.close(); w.focus(); w.print();
+}
+
+function downloadReceipt(id) {
+  const p = DB.payments.find(x => x.id === id);
+  if (!p) return;
+  const s = student(p.studentId);
+  const html = `<!DOCTYPE html><html><head><title>Receipt ${p.receipt}</title><style>body{font-family:system-ui;padding:28px;text-align:center}</style></head><body>
+    <h2>${esc(DB.settings.schoolName)}</h2><p>${esc(DB.settings.address)}</p><hr>
+    <h3>OFFICIAL FEE RECEIPT</h3>
+    <p>Receipt No: <b>${esc(p.receipt)}</b></p>
+    <p>Student: <b>${esc(s?.name||"")}</b></p>
+    <p>Amount: <b>${money(p.amount)}</b></p>
+    <p>Term: ${esc(p.term)} | Date: ${esc(p.date)}</p>
+  </body></html>`;
+  const blob = new Blob([html], {type:"text/html"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "Receipt_" + p.receipt + ".html";
+  a.click();
+  toast("Receipt downloaded.");
+}
+
+function shareReceipt(id) {
+  const p = DB.payments.find(x => x.id === id);
+  if (!p) return;
+  const s = student(p.studentId);
+  const text = encodeURIComponent(`Fee Receipt ${p.receipt} – ${s?.name || ""} – ${money(p.amount)} – ${DB.settings.schoolName}`);
+  window.open(`https://wa.me/?text=${text}`, "_blank");
+  toast("Opening share…");
+}
+
+function renderPayroll() {
+  if (!assertRole(["admin","bursary","developer"])) return;
+  const staff = staffUsers();
+  const totalPayroll = staff.reduce((a,u)=>a+(Number(u.salary)||0),0);
+  const paidTotal = DB.salaryPayments.reduce((a,p)=>a+(Number(p.amount)||0),0);
+  document.getElementById("statStaffCount").textContent = staff.length;
+  document.getElementById("statPayrollTotal").textContent = money(totalPayroll);
+  document.getElementById("statVouchers").textContent = DB.vouchers.length;
+  document.getElementById("statPaidSalaries").textContent = money(paidTotal);
+
+  document.getElementById("vouchersTable").innerHTML = DB.vouchers.length
+    ? DB.vouchers.slice().reverse().map(v => {
+        const b = bank(v.bankId);
+        return `<tr>
+          <td><b>${esc(v.voucherNo)}</b></td>
+          <td>${esc(v.month)}</td>
+          <td>${esc(b?.name||"—")}</td>
+          <td>${v.staffCount}</td>
+          <td><b>${money(v.totalAmount)}</b></td>
+          <td><span class="badge ${v.status==="Paid"?"green":v.status==="Processing"?"orange":"blue"}">${esc(v.status)}</span></td>
+          <td>${esc(v.date)}</td>
+          <td>
+            <button class="btn sm" type="button" data-view-voucher="${esc(v.id)}">View</button>
+            ${v.status!=="Paid"?`<button class="btn sm teal" type="button" data-resend-voucher="${esc(v.id)}">Resend</button>`:""}
+            <button class="btn sm red" type="button" data-del-voucher="${esc(v.id)}">Delete</button>
+          </td>
+        </tr>`;
+      }).join("")
+    : `<tr><td colspan="8">No salary vouchers yet. Click “Prepare Salary Voucher”.</td></tr>`;
+
+  document.querySelectorAll("[data-view-voucher]").forEach(btn => { btn.onclick = () => viewVoucher(btn.dataset.viewVoucher); });
+  document.querySelectorAll("[data-resend-voucher]").forEach(btn => { btn.onclick = () => resendVoucher(btn.dataset.resendVoucher); });
+  document.querySelectorAll("[data-del-voucher]").forEach(btn => { btn.onclick = () => deleteVoucher(btn.dataset.delVoucher); });
+}
+
+function openPrepareVoucher() {
+  if (!assertRole(["admin","bursary","developer"])) return;
+  const staff = staffUsers();
+  if (!staff.length) return toast("No staff with salary records. Add staff first.");
+  selectedBankId = null;
+  const month = new Date().toLocaleString("en-NG",{month:"long",year:"numeric"});
+  openModal("Prepare Salary Payment Voucher", `
+    <div class="voucher-box">
+      <h3>💼 Salary Voucher – ${esc(month)}</h3>
+      <p style="font-size:12px;opacity:.9">Select staff, choose destination bank, then dispatch. Bank will credit salaries instantly.</p>
+    </div>
+    <div class="field"><label>Payment Month</label><input id="vMonth" value="${esc(month)}"></div>
+    <div class="field"><label>Select Staff to Pay</label>
+      <div style="max-height:180px;overflow:auto;border:1px solid #e2e8f0;border-radius:10px;padding:8px">
+        ${staff.map(u => {
+          const b = bank(u.bankId);
+          return `<label style="display:flex;align-items:center;gap:8px;padding:6px 4px;font-size:13px;cursor:pointer">
+            <input type="checkbox" class="vStaff" value="${esc(u.id)}" checked data-salary="${u.salary||0}">
+            <span style="flex:1"><b>${esc(u.name)}</b> <small style="color:#64748b">(${esc(ROLE_NAMES[u.role]||u.role)})</small></span>
+            <span>${money(u.salary||0)}</span>
+            <small style="color:#64748b">${esc(b?.name||"No bank")}</small>
+          </label>`;
+        }).join("")}
+      </div>
+    </div>
+    <div class="field"><label>Select Destination Bank (Voucher will be sent here)</label>
+      <div class="grid2" id="bankGrid" style="gap:10px">
+        ${BANKS.map(b => `
+          <div class="bank-card" data-bank="${esc(b.id)}" style="border-color:${b.color}33">
+            <div style="width:42px;height:42px;border-radius:10px;background:${b.color};color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-weight:800;font-size:13px">${b.code}</div>
+            <div style="font-size:12px;font-weight:700">${esc(b.name)}</div>
+          </div>`).join("")}
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn purple" id="dispatchVoucherBtn" type="button">🚀 Dispatch Voucher to Bank</button>
+    </div>
+  `);
+  document.querySelectorAll(".bank-card").forEach(card => {
+    card.onclick = () => {
+      document.querySelectorAll(".bank-card").forEach(c => c.classList.remove("selected"));
+      card.classList.add("selected");
+      selectedBankId = card.dataset.bank;
+    };
+  });
+  document.getElementById("dispatchVoucherBtn").onclick = dispatchVoucher;
+}
+
+function dispatchVoucher() {
+  if (!assertRole(["admin","bursary","developer"])) return;
+  if (!selectedBankId) return toast("Please select a destination bank.");
+  const month = document.getElementById("vMonth").value.trim() || new Date().toLocaleString("en-NG",{month:"long",year:"numeric"});
+  const checked = [...document.querySelectorAll(".vStaff:checked")];
+  if (!checked.length) return toast("Select at least one staff member.");
+  const lines = checked.map(el => {
+    const u = user(el.value);
+    return { staffId:u.id, name:u.name, amount:Number(u.salary)||0, bankId:u.bankId, accountNo:u.accountNo, accountName:u.accountName };
+  });
+  const total = lines.reduce((a,l)=>a+l.amount,0);
+  const voucher = {
+    id: uid("VCH"),
+    voucherNo: "PV-" + Date.now().toString().slice(-8),
+    month,
+    bankId: selectedBankId,
+    staffCount: lines.length,
+    totalAmount: total,
+    lines,
+    status: "Processing",
+    date: new Date().toISOString().slice(0,10),
+    createdBy: currentUser.id,
+    processedAt: null
+  };
+  DB.vouchers.push(voucher);
+  saveDB();
+  closeModal();
+  toast("Voucher dispatched to " + (bank(selectedBankId)?.name||"bank") + "… Processing");
+  setTimeout(() => processBankPayment(voucher.id), 1800);
+  renderPayroll();
+}
+
+function processBankPayment(voucherId) {
+  const v = DB.vouchers.find(x => x.id === voucherId);
+  if (!v || v.status === "Paid") return;
+  v.status = "Paid";
+  v.processedAt = new Date().toISOString();
+  v.lines.forEach(line => {
+    DB.salaryPayments.push({
+      id: uid("SAL"),
+      voucherId: v.id,
+      voucherNo: v.voucherNo,
+      staffId: line.staffId,
+      amount: line.amount,
+      bankId: v.bankId,
+      accountNo: line.accountNo,
+      date: new Date().toISOString().slice(0,10),
+      status: "Credited"
+    });
+  });
+  DB.notifications.push({
+    id: uid("NTF"),
+    title: "Salary Voucher Paid",
+    message: `Voucher ${v.voucherNo} (${v.month}) – ${money(v.totalAmount)} credited to staff accounts via ${bank(v.bankId)?.name||"bank"}.`,
+    date: new Date().toISOString(),
+    audience: "all"
+  });
+  saveDB();
+  if (document.getElementById("page-payroll").classList.contains("active")) renderPayroll();
+  toast("✅ Bank confirmed: Salaries paid instantly – " + money(v.totalAmount));
+}
+
+function viewVoucher(id) {
+  if (!assertRole(["admin","bursary","developer"])) return;
+  const v = DB.vouchers.find(x => x.id === id);
+  if (!v) return;
+  const b = bank(v.bankId);
+  openModal("Voucher " + v.voucherNo, `
+    <div class="voucher-box">
+      <h3>${esc(v.voucherNo)} • ${esc(v.month)}</h3>
+      <p style="font-size:13px">Bank: <b>${esc(b?.name||"—")}</b> &nbsp;|&nbsp; Status: <b>${esc(v.status)}</b></p>
+      <p style="font-size:13px;margin-top:4px">Total: <b>${money(v.totalAmount)}</b> • Staff: ${v.staffCount}</p>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Staff</th><th>Account</th><th>Amount</th><th>Status</th></tr></thead>
+      <tbody>
+        ${v.lines.map(l => `
+          <tr>
+            <td>${esc(l.name)}</td>
+            <td>${esc(l.accountNo||"—")}<br><small>${esc(l.accountName||"")}</small></td>
+            <td><b>${money(l.amount)}</b></td>
+            <td><span class="badge ${v.status==="Paid"?"green":"orange"}">${v.status==="Paid"?"Credited":"Pending"}</span></td>
+          </tr>`).join("")}
+      </tbody>
+    </table></div>
+    <div class="form-actions">
+      ${v.status!=="Paid"?`<button class="btn teal" id="forcePayBtn" type="button">Force Instant Credit</button>`:""}
+      <button class="btn gray" id="closeVoucherBtn" type="button">Close</button>
+    </div>
+  `);
+  document.getElementById("closeVoucherBtn").onclick = closeModal;
+  const fp = document.getElementById("forcePayBtn");
+  if (fp) fp.onclick = () => { processBankPayment(v.id); closeModal(); renderPayroll(); };
+}
+
+function resendVoucher(id) {
+  if (!assertRole(["admin","bursary","developer"])) return;
+  const v = DB.vouchers.find(x => x.id === id);
+  if (!v || v.status === "Paid") return;
+  toast("Resending voucher to " + (bank(v.bankId)?.name||"bank") + "…");
+  setTimeout(() => processBankPayment(v.id), 1200);
+}
+
+function deleteVoucher(id) {
+  if (!assertRole(["admin","bursary","developer"])) return;
+  if (!confirmDelete("Delete this voucher record?")) return;
+  DB.vouchers = DB.vouchers.filter(v => v.id !== id);
+  DB.salaryPayments = DB.salaryPayments.filter(p => p.voucherId !== id);
+  saveDB(); renderPayroll(); toast("Voucher deleted.");
+}
+
+function renderUsers() {
+  if (!assertRole(["admin","developer"])) return;
+  document.getElementById("usersTable").innerHTML = DB.users.map(u => `
+    <tr>
+      <td>${esc(u.name)}</td><td>${esc(u.username)}</td>
+      <td><span class="badge blue">${esc(ROLE_NAMES[u.role]||u.role)}</span></td>
+      <td>${u.mustChange?"Initial / Temporary":"Password set"}</td>
+      <td>
+        <button class="btn sm" type="button" data-reset-user="${esc(u.id)}">Reset PW</button>
+        ${u.role!=="admin"&&u.role!=="developer"?`<button class="btn sm red" type="button" data-del-user="${esc(u.id)}">Delete</button>`:""}
+      </td>
+    </tr>`).join("");
+  document.querySelectorAll("[data-reset-user]").forEach(btn => { btn.onclick = () => resetUserPassword(btn.dataset.resetUser); });
+  document.querySelectorAll("[data-del-user]").forEach(btn => { btn.onclick = () => deleteUser(btn.dataset.delUser); });
+}
+
+function resetUserPassword(id) {
+  if (!assertRole(["admin","developer"])) return;
+  const u = user(id); if (!u) return;
+  if (!confirmDelete("Reset password for " + u.name + " to default ECWA@2026?")) return;
+  u.passwordHash = hashPassword("ECWA@2026"); u.mustChange = true;
+  saveDB(); renderUsers(); toast(`${u.name}'s password has been reset to default.`);
+}
+
+function deleteUser(id) {
+  if (!assertRole(["admin","developer"])) return;
+  if (!confirmDelete("Delete this user account?")) return;
+  DB.users = DB.users.filter(u => u.id !== id);
+  saveDB(); renderUsers(); toast("User deleted.");
+}
+
+function renderSettings() {
+  if (!assertRole(["admin","developer"])) return;
+  document.getElementById("settingSchoolName").value = DB.settings.schoolName||"";
+  document.getElementById("settingAddress").value = DB.settings.address||"";
+  document.getElementById("settingMotto").value = DB.settings.motto||"";
+  document.getElementById("settingSession").value = DB.settings.session||"";
+  document.getElementById("settingTerm").value = DB.settings.term||"First Term";
+  document.getElementById("settingLock").value = DB.settings.resultLock||"open";
+  document.getElementById("settingPassMark").value = DB.settings.passMark||50;
+}
+
+function saveSettings() {
+  if (!assertRole(["admin","developer"])) return;
+  DB.settings.schoolName = document.getElementById("settingSchoolName").value.trim()||DB.settings.schoolName;
+  DB.settings.address = document.getElementById("settingAddress").value.trim()||DB.settings.address;
+  DB.settings.motto = document.getElementById("settingMotto").value.trim()||DB.settings.motto;
+  DB.settings.session = document.getElementById("settingSession").value.trim()||DB.settings.session;
+  DB.settings.term = document.getElementById("settingTerm").value;
+  DB.settings.resultLock = document.getElementById("settingLock").value;
+  DB.settings.passMark = Number(document.getElementById("settingPassMark").value)||50;
+  saveDB(); updateBrand(); toast("Settings saved.");
+}
+
+function renderAssignments() {
+  if (!requireAuth()) return;
+  let arr = DB.assignments;
+  if (currentUser.role === "teacher") arr = arr.filter(a => a.teacherId === currentUser.id);
+  else if (currentUser.role === "parent" || currentUser.role === "student") {
+    const cids = new Set(visibleStudents().map(s => s.classId));
+    arr = arr.filter(a => cids.has(a.classId));
+  }
+  const canManage = ["admin","teacher","developer"].includes(currentUser.role);
+  document.getElementById("assignmentsTable").innerHTML = arr.length ? arr.map(a => `
+    <tr><td>${esc(a.title)}</td><td>${esc(subject(a.subjectId)?.name||"—")}</td><td>${esc(cls(a.classId)?.name||"—")}</td>
+    <td>${esc(a.due||"—")}</td><td><span class="badge orange">Active</span></td>
+    <td>${canManage?`<button class="btn sm" type="button" data-edit-asn="${esc(a.id)}">Edit</button> <button class="btn sm red" type="button" data-del-asn="${esc(a.id)}">Delete</button>`:"—"}</td></tr>`).join("") : `<tr><td colspan="6">No assignments.</td></tr>`;
+  document.querySelectorAll("[data-edit-asn]").forEach(btn => { btn.onclick = () => openAssignmentModal(btn.dataset.editAsn); });
+  document.querySelectorAll("[data-del-asn]").forEach(btn => { btn.onclick = () => deleteAssignment(btn.dataset.delAsn); });
+  const addBtn = document.getElementById("addAssignmentBtn");
+  if (addBtn) addBtn.style.display = canManage ? "" : "none";
+}
+
+function openAssignmentModal(id) {
+  if (!assertRole(["admin","teacher","developer"])) return;
+  const a = id ? DB.assignments.find(x => x.id === id) : null;
+  openModal(a ? "Edit Assignment" : "New Assignment", `
+    <div class="field"><label>Title</label><input id="aTitle" value="${esc(a?.title||"")}"></div>
+    <div class="form-grid">
+      <div class="field"><label>Subject</label><select id="aSubject">${DB.subjects.map(s=>`<option value="${esc(s.id)}" ${a?.subjectId===s.id?"selected":""}>${esc(s.name)}</option>`).join("")}</select></div>
+      <div class="field"><label>Class</label><select id="aClass">${visibleClasses().map(c=>`<option value="${esc(c.id)}" ${a?.classId===c.id?"selected":""}>${esc(c.name)}</option>`).join("")}</select></div>
+      <div class="field"><label>Due Date</label><input type="date" id="aDue" value="${esc(a?.due||"")}"></div>
+    </div>
+    <div class="field"><label>Instructions</label><textarea id="aText" rows="4">${esc(a?.text||"")}</textarea></div>
+    <div class="form-actions"><button class="btn green" id="saveAssignmentBtn" type="button">Save Assignment</button></div>
+  `);
+  document.getElementById("saveAssignmentBtn").onclick = () => saveAssignment(id||"");
+}
+
+function saveAssignment(id) {
+  if (!assertRole(["admin","teacher","developer"])) return;
+  const title = document.getElementById("aTitle").value.trim();
+  if (!title) return toast("Assignment title required.");
+  const classId = document.getElementById("aClass").value;
+  if (!visibleClasses().some(c => c.id === classId) && currentUser.role === "teacher") return toast("You can only assign to your class.");
+  if (id) {
+    const a = DB.assignments.find(x => x.id === id);
+    if (a) {
+      a.title = title; a.subjectId = document.getElementById("aSubject").value;
+      a.classId = classId; a.due = document.getElementById("aDue").value;
+      a.text = document.getElementById("aText").value.trim();
+    }
+  } else {
+    DB.assignments.push({ id:uid("ASN"), title, subjectId:document.getElementById("aSubject").value, classId, due:document.getElementById("aDue").value, text:document.getElementById("aText").value.trim(), teacherId:currentUser.id });
+    DB.notifications.push({ id:uid("NTF"), title:"New Assignment", message:title, date:new Date().toISOString(), audience:"class:"+classId });
+  }
+  saveDB(); closeModal(); renderAssignments(); toast("Assignment saved.");
+}
+
+function deleteAssignment(id) {
+  if (!assertRole(["admin","teacher","developer"])) return;
+  if (!confirmDelete("Delete this assignment?")) return;
+  DB.assignments = DB.assignments.filter(a => a.id !== id);
+  saveDB(); renderAssignments(); toast("Assignment deleted.");
+}
+
+function renderNotifications() {
+  if (!requireAuth()) return;
+  const list = DB.notifications.filter(n => canSeeNotification(n)).slice().reverse();
+  document.getElementById("notificationList").innerHTML = list.length ? list.map(n => `
+    <div class="card" style="margin-bottom:10px">
+      <b style="color:#0D47A1">${esc(n.title)}</b>
+      <span class="badge teal" style="margin-left:8px">${esc(n.audience||"all")}</span>
+      <p style="font-size:12px;margin-top:6px">${esc(n.message)}</p>
+      <small style="color:#94a3b8">${new Date(n.date).toLocaleString()}</small>
+      ${["admin","developer"].includes(currentUser.role)?`<button class="btn sm red" style="float:right" type="button" data-del-ntf="${esc(n.id)}">Delete</button>`:""}
+    </div>`).join("") : "<div class='card'>No notifications.</div>";
+  document.querySelectorAll("[data-del-ntf]").forEach(btn => { btn.onclick = () => deleteNotification(btn.dataset.delNtf); });
+  const addBtn = document.getElementById("addAnnouncementBtn");
+  if (addBtn) addBtn.style.display = ["admin","developer"].includes(currentUser.role) ? "" : "none";
+}
+
+function openAnnouncementModal() {
+  if (!assertRole(["admin","developer"])) return;
+  openModal("New Announcement", `
+    <div class="field"><label>Title</label><input id="nTitle"></div>
+    <div class="field"><label>Message</label><textarea id="nMsg" rows="5"></textarea></div>
+    <div class="field"><label>Audience (Who should see this?)</label>
+      <select id="nAudience">
+        <option value="all">Everyone</option>
+        <option value="admin">Administrators only</option>
+        <option value="teacher">Teachers only</option>
+        <option value="exam">Exam Officers only</option>
+        <option value="bursary">Bursary only</option>
+        <option value="parent">Parents only</option>
+        <option value="student">Students only</option>
+        ${DB.classes.map(c=>`<option value="class:${esc(c.id)}">Class: ${esc(c.name)}</option>`).join("")}
+      </select>
+    </div>
+    <div class="form-actions"><button class="btn green" id="saveAnnouncementBtn" type="button">Publish</button></div>
+  `);
+  document.getElementById("saveAnnouncementBtn").onclick = saveAnnouncement;
+}
+
+function saveAnnouncement() {
+  if (!assertRole(["admin","developer"])) return;
+  const title = document.getElementById("nTitle").value.trim();
+  const message = document.getElementById("nMsg").value.trim();
+  const audience = document.getElementById("nAudience").value;
+  if (!title || !message) return toast("Title and message are required.");
+  DB.notifications.push({ id:uid("NTF"), title, message, date:new Date().toISOString(), audience });
+  saveDB(); closeModal(); renderNotifications(); toast("Announcement published.");
+}
+
+function deleteNotification(id) {
+  if (!assertRole(["admin","developer"])) return;
+  if (!confirmDelete("Delete this announcement?")) return;
+  DB.notifications = DB.notifications.filter(n => n.id !== id);
+  saveDB(); renderNotifications(); toast("Announcement deleted.");
+}
+
+function renderProfile() {
+  if (!requireAuth()) return;
+  let extra = "";
+  if (currentUser.studentId) {
+    const s = student(currentUser.studentId);
+    if (s) extra = `<hr style="margin:14px 0;border:none;border-top:1px solid #e2e8f0"><h3 style="font-size:14px;margin-bottom:8px">Student / Ward</h3>
+      <p><b>Name:</b> ${esc(s.name)}</p><p><b>Admission:</b> ${esc(s.admission)}</p><p><b>Class:</b> ${esc(cls(s.classId)?.name||"—")}</p>
+      <p><b>Attendance:</b> ${getAttendancePercent(s.id)}</p>`;
+  }
+  const u = user(currentUser.id);
+  let salaryInfo = "";
+  if (u && u.salary) {
+    const b = bank(u.bankId);
+    salaryInfo = `<hr style="margin:14px 0;border:none;border-top:1px solid #e2e8f0">
+      <p><b>Monthly Salary:</b> ${money(u.salary)}</p>
+      <p><b>Bank:</b> ${esc(b?.name||"—")}</p>
+      <p><b>Account:</b> ${esc(u.accountNo||"—")} (${esc(u.accountName||"")})</p>`;
+  }
+  document.getElementById("profileCard").innerHTML = `
+    <h3 style="color:#0D47A1;font-size:16px">${esc(currentUser.name)}</h3>
+    <p style="margin-top:10px"><b>Username:</b> ${esc(currentUser.username)}</p>
+    <p><b>Role:</b> ${esc(ROLE_NAMES[currentUser.role]||currentUser.role)}</p>
+    ${extra}${salaryInfo}
+    <br><button class="btn" id="profileChangePassBtn" type="button">Change Password</button>
+    <div class="dev-banner" style="margin-top:20px">Need a custom school portal? Contact <b>Mr Victor Mchiave</b> ☎ 08063563617</div>
+  `;
+  document.getElementById("profileChangePassBtn").onclick = () => openPasswordChange(false);
+}
+
+function openModal(title, body) {
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalBody").innerHTML = body;
+  document.getElementById("modal").classList.remove("hidden");
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.add("hidden");
+  document.getElementById("modalBody").innerHTML = "";
+  selectedBankId = null;
+}
+
+/* Developer actions */
+function devShutdown() {
+  if (!assertRole("developer")) return;
+  if (!confirm("Put portal into MAINTENANCE mode?")) return;
+  if (!confirm("Confirm: All non-developer users will be blocked.")) return;
+  const msg = prompt("Maintenance message:", "Portal closed for result upload / maintenance.") || "Portal under maintenance.";
+  DB.settings.portalStatus = "maintenance";
+  DB.settings.maintMessage = msg;
+  saveDB(); logAction("Portal shutdown"); toast("Portal is now in maintenance mode.");
+  renderDeveloper();
+}
+
+function devReopen() {
+  if (!assertRole("developer")) return;
+  if (!confirm("Reopen portal for all users?")) return;
+  DB.settings.portalStatus = "online";
+  DB.settings.maintMessage = "";
+  saveDB(); logAction("Portal reopened"); toast("Portal is online.");
+  renderDeveloper();
+}
+
+function devLock() {
+  if (!assertRole("developer")) return;
+  if (!confirm("LOCK portal? Only Developer can login.")) return;
+  if (!confirm("Double confirm LOCK.")) return;
+  DB.settings.lockMode = true;
+  saveDB(); logAction("Portal locked"); toast("Portal locked to Developer only.");
+  renderDeveloper();
+}
+
+function devUnlock() {
+  if (!assertRole("developer")) return;
+  if (!confirm("Unlock portal for normal logins?")) return;
+  DB.settings.lockMode = false;
+  saveDB(); logAction("Portal unlocked"); toast("Portal unlocked.");
+  renderDeveloper();
+}
+
+function devFactory() {
+  if (!assertRole("developer")) return;
+  if (!confirm("FACTORY RESET will erase ALL data. Continue?")) return;
+  const typed = prompt('Type "FACTORY RESET" to confirm:');
+  if (typed !== "FACTORY RESET") return toast("Confirmation text mismatch. Aborted.");
+  localStorage.removeItem(KEY);
+  sessionStorage.removeItem(SESSION_KEY);
+  location.reload();
+}
+
+function devBackup() {
+  if (!assertRole("developer")) return;
+  const data = JSON.stringify(DB, null, 2);
+  const blob = new Blob([data], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "ECWA_Backup_" + new Date().toISOString().slice(0,10) + ".json";
+  a.click();
+  DB.settings.lastBackup = new Date().toISOString();
+  saveDB(); logAction("Backup downloaded"); toast("Full backup downloaded.");
+  renderDeveloper();
+}
+
+function devRestore() {
+  if (!assertRole("developer")) return;
+  document.getElementById("restoreFile").click();
+}
+
+function handleRestore(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (!confirm("Restore will OVERWRITE current data. Continue?")) return;
+  if (!confirm("Double confirm restore from file.")) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const parsed = JSON.parse(ev.target.result);
+      if (!parsed.settings || !parsed.users) throw new Error("Invalid backup");
+      DB = Object.assign(clone(DEFAULT), parsed);
+      saveDB();
+      logAction("Backup restored");
+      toast("Backup restored successfully. Reloading…");
+      setTimeout(() => location.reload(), 800);
+    } catch (err) {
+      toast("Invalid backup file.");
+    }
+  };
+  reader.readAsText(file);
+}
+
+function devExport() {
+  if (!assertRole("developer")) return;
+  let csv = "Type,ID,Details\n";
+  DB.students.forEach(s => { csv += `Student,${s.id},"${s.name}|${s.admission}|${s.classId}"\n`; });
+  DB.scores.forEach(sc => { csv += `Score,${sc.id},"${sc.studentId}|${sc.subjectId}|${calcTotal(sc)}"\n`; });
+  DB.payments.forEach(p => { csv += `Payment,${p.id},"${p.studentId}|${p.amount}|${p.date}"\n`; });
+  const blob = new Blob([csv], {type:"text/csv"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "ECWA_Export_" + Date.now() + ".csv";
+  a.click();
+  toast("CSV export ready.");
+}
+
+function devClearCache() {
+  if (!assertRole("developer")) return;
+  if (!confirm("Clear old logs and failed login records?")) return;
+  DB.logs = (DB.logs || []).slice(-20);
+  DB.failedLogins = [];
+  saveDB(); toast("Cache / old logs cleared.");
+  renderDeveloper();
+}
+
+function devDiag() {
+  if (!assertRole("developer")) return;
+  const size = getStorageSize();
+  const msg = `Diagnostics\nStorage: ${size} KB\nStudents: ${DB.students.length}\nScores: ${DB.scores.length}\nPayments: ${DB.payments.length}\nUsers: ${DB.users.length}\nOnline: ${navigator.onLine}\nVersion: ${VERSION}`;
+  alert(msg);
+  logAction("Diagnostics run");
+}
+
+function devSaveConfig() {
+  if (!assertRole("developer")) return;
+  DB.settings.schoolName = document.getElementById("devSchoolName").value.trim() || DB.settings.schoolName;
+  DB.settings.session = document.getElementById("devSession").value.trim() || DB.settings.session;
+  DB.settings.term = document.getElementById("devTerm").value;
+  DB.settings.passMark = Number(document.getElementById("devPassMark").value) || 50;
+  DB.settings.sessionTimeout = Number(document.getElementById("devTimeout").value) || 8;
+  saveDB(); updateBrand(); toast("Config saved.");
+}
+
+function devSearchStudent() {
+  if (!assertRole("developer")) return;
+  const q = (document.getElementById("devStudentSearch").value || "").toLowerCase();
+  if (!q) return;
+  const found = DB.students.filter(s => (`${s.name} ${s.admission}`).toLowerCase().includes(q));
+  document.getElementById("devStudentResult").innerHTML = found.length
+    ? found.map(s => `<div>${esc(s.name)} • ${esc(s.admission)} • ${esc(cls(s.classId)?.name||"—")}</div>`).join("")
+    : "No match.";
+}
+
+function devResultLink() {
+  if (!assertRole("developer")) return;
+  const sid = prompt("Enter Student ID (e.g. STU001):");
+  if (!sid) return;
+  const s = student(sid);
+  if (!s) return toast("Student not found.");
+  const link = location.href.split("#")[0] + "#result=" + sid;
+  document.getElementById("devResultLink").textContent = link;
+  toast("Link generated (share with parent).");
+}
+
+function devTestAnnounce() {
+  if (!assertRole("developer")) return;
+  DB.notifications.push({ id:uid("NTF"), title:"System Test", message:"This is a test announcement from Developer Dashboard.", date:new Date().toISOString(), audience:"all" });
+  saveDB(); toast("Test announcement sent to all.");
+}
+
+function devResetPwTool() {
+  if (!assertRole("developer")) return;
+  const un = prompt("Username to reset:");
+  if (!un) return;
+  const u = DB.users.find(x => x.username.toLowerCase() === un.toLowerCase());
+  if (!u) return toast("User not found.");
+  if (!confirm("Reset " + u.name + " to ECWA@2026?")) return;
+  u.passwordHash = hashPassword("ECWA@2026");
+  u.mustChange = true;
+  saveDB(); toast("Password reset.");
+}
+
+/* ========== SUPER AI CHATBOT PLUS ENGINE ========== */
+let chatOpen = false;
+let chatPendingAction = null;
+
+function initChatbot() {
+  const fab = document.getElementById("chatbotFab");
+  const panel = document.getElementById("chatbotPanel");
+  fab.classList.remove("hidden");
+  fab.onclick = toggleChat;
+  document.getElementById("chatCloseBtn").onclick = () => { panel.classList.add("hidden"); chatOpen = false; };
+  document.getElementById("chatSendBtn").onclick = sendChat;
+  document.getElementById("chatInput").onkeydown = e => { if (e.key === "Enter") sendChat(); };
+  if (!DB.chatHistory) DB.chatHistory = [];
+  const body = document.getElementById("chatBody");
+  body.innerHTML = "";
+  addBotMsg(`Hello <b>${esc(currentUser.name)}</b>! 🧠 I am <b>ECWA Super AI Plus</b> – your highly intelligent assistant.<br><br>I can:<br>• Navigate the entire portal<br>• Answer educational & research questions<br>• Solve maths, science & assignment problems<br>• Calculate anything<br>• Think critically & explain concepts<br>• Help with school data (students, results, fees…)<br><br>Ask me anything (except security secrets).`, true);
+}
+
+function toggleChat() {
+  const panel = document.getElementById("chatbotPanel");
+  chatOpen = !chatOpen;
+  panel.classList.toggle("hidden", !chatOpen);
+  if (chatOpen) document.getElementById("chatInput").focus();
+}
+
+function addBotMsg(html, withQuick) {
+  const body = document.getElementById("chatBody");
+  const div = document.createElement("div");
+  div.className = "chat-msg bot";
+  const time = new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+  let quick = "";
+  if (withQuick) {
+    const role = currentUser.role;
+    const qs = ["Help","Navigate portal","Solve 2x+5=15","Explain photosynthesis","How many students?"];
+    if (["admin","developer","bursary"].includes(role)) qs.push("Fee balance");
+    if (["admin","developer","teacher","exam","parent","student"].includes(role)) qs.push("My results");
+    quick = `<div class="chat-quick">${qs.map(q => `<button type="button" data-q="${esc(q)}">${esc(q)}</button>`).join("")}</div>`;
+  }
+  div.innerHTML = `<div class="chat-bubble">${html}</div><div class="chat-time">${time}</div>${quick}`;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+  div.querySelectorAll("[data-q]").forEach(b => { b.onclick = () => { document.getElementById("chatInput").value = b.dataset.q; sendChat(); }; });
+}
+
+function addUserMsg(text) {
+  const body = document.getElementById("chatBody");
+  const div = document.createElement("div");
+  div.className = "chat-msg user";
+  const time = new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+  div.innerHTML = `<div class="chat-bubble">${esc(text)}</div><div class="chat-time">${time}</div>`;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+
+function sendChat() {
+  const inp = document.getElementById("chatInput");
+  const text = inp.value.trim();
+  if (!text) return;
+  inp.value = "";
+  addUserMsg(text);
+  if (chatPendingAction) {
+    handlePending(text);
+    return;
+  }
+  document.getElementById("chatStatus").textContent = "Thinking…";
+  setTimeout(() => {
+    processChat(text);
+    document.getElementById("chatStatus").textContent = "Online • Highly Intelligent Assistant";
+  }, 280 + Math.random()*400);
+}
+
+function handlePending(text) {
+  const act = chatPendingAction;
+  chatPendingAction = null;
+  if (act.type === "addStudent") {
+    const parts = text.split(/[,|]/).map(s => s.trim()).filter(Boolean);
+    if (parts.length < 2) { addBotMsg("Please provide at least <b>Name</b> and <b>Class</b>. Example: <code>John Doe, JSS 1, Male</code>"); return; }
+    const name = parts[0];
+    let classId = "";
+    const classHint = parts[1] || "";
+    const found = DB.classes.find(c => c.name.toLowerCase().includes(classHint.toLowerCase()) || c.id === classHint.toLowerCase());
+    if (found) classId = found.id;
+    else { addBotMsg("Class not found. Available: " + DB.classes.map(c => c.name).join(", ")); return; }
+    const gender = (parts[2] || "Male").toLowerCase().startsWith("f") ? "Female" : "Male";
+    const admission = "STD/" + new Date().getFullYear() + "/" + String(DB.students.length + 1).padStart(3, "0");
+    const s = { id: uid("STU"), admission, name, gender, dob: "", classId, parent: parts[3] || "", phone: parts[4] || "", status: "Active" };
+    DB.students.push(s);
+    saveDB();
+    logAction("Chatbot added student: " + name);
+    addBotMsg(`✅ Student <b>${esc(name)}</b> registered successfully!<br>Admission: <b>${esc(admission)}</b><br>Class: <b>${esc(found.name)}</b><br>Gender: ${gender}`);
+    if (document.getElementById("page-students").classList.contains("active")) renderStudents();
+    updateDashboard();
+  } else if (act.type === "recordPayment") {
+    const parts = text.split(/[,|]/).map(s => s.trim()).filter(Boolean);
+    if (parts.length < 2) { addBotMsg("Provide <b>Student name/admission</b> and <b>Amount</b>. Example: <code>Sample Student, 50000</code>"); return; }
+    const q = parts[0].toLowerCase();
+    const s = DB.students.find(x => x.name.toLowerCase().includes(q) || x.admission.toLowerCase().includes(q));
+    if (!s) { addBotMsg("Student not found."); return; }
+    const amount = Number(parts[1].replace(/[₦,]/g, ""));
+    if (!amount || amount <= 0) { addBotMsg("Invalid amount."); return; }
+    const p = { id: uid("PAY"), receipt: "REC-" + Date.now(), studentId: s.id, amount, date: new Date().toISOString().slice(0,10), term: DB.settings.term, method: "Cash" };
+    DB.payments.push(p);
+    saveDB();
+    logAction("Chatbot recorded payment: " + amount + " for " + s.name);
+    addBotMsg(`✅ Payment of <b>${money(amount)}</b> recorded for <b>${esc(s.name)}</b>.<br>Receipt: <b>${esc(p.receipt)}</b>`);
+    if (document.getElementById("page-bursary").classList.contains("active")) renderBursary();
+    updateDashboard();
+  } else if (act.type === "announce") {
+    if (text.length < 3) { addBotMsg("Message too short."); return; }
+    DB.notifications.push({ id: uid("NTF"), title: "Announcement", message: text, date: new Date().toISOString(), audience: "all" });
+    saveDB();
+    logAction("Chatbot announcement");
+    addBotMsg("✅ Announcement published to everyone.");
+    if (document.getElementById("page-notifications").classList.contains("active")) renderNotifications();
+  }
+}
+
+/* ===== ADVANCED MATH & CALCULATION ENGINE ===== */
+function safeEvalMath(expr) {
+  try {
+    let e = expr.replace(/×/g,"*").replace(/÷/g,"/").replace(/−/g,"-").replace(/\^/g,"**");
+    e = e.replace(/(\d+(?:\.\d+)?)\s*%/g, "($1/100)");
+    if (!/^[\d\s+\-*/().%**eE,]+$/.test(e.replace(/\s/g,""))) return null;
+    const fn = new Function("return (" + e + ")");
+    const r = fn();
+    if (typeof r !== "number" || !isFinite(r)) return null;
+    return Math.round(r * 1e10) / 1e10;
+  } catch(e) { return null; }
+}
+
+function solveEquation(text) {
+  const t = text.toLowerCase().replace(/\s+/g," ");
+  // Simple linear: ax + b = c
+  let m = t.match(/([+-]?\d*\.?\d*)\s*x\s*([+-]\s*\d+\.?\d*)\s*=\s*([+-]?\d+\.?\d*)/);
+  if (m) {
+    let a = parseFloat(m[1] || "1"); if (m[1]==="-"||m[1]==="+") a = m[1]==="-"?-1:1;
+    let b = parseFloat(m[2].replace(/\s/g,""));
+    let c = parseFloat(m[3]);
+    if (a === 0) return "No unique solution (coefficient of x is zero).";
+    const x = (c - b) / a;
+    return `Solving: ${a}x ${b>=0?"+":""}${b} = ${c}<br>x = (${c} − ${b}) / ${a} = <b>${x}</b>`;
+  }
+  m = t.match(/([+-]?\d*\.?\d*)\s*x\s*=\s*([+-]?\d+\.?\d*)/);
+  if (m) {
+    let a = parseFloat(m[1] || "1"); if (m[1]==="-"||m[1]==="+") a = m[1]==="-"?-1:1;
+    let c = parseFloat(m[2]);
+    if (a === 0) return "No solution.";
+    return `x = ${c} / ${a} = <b>${c/a}</b>`;
+  }
+  // Quadratic ax² + bx + c = 0
+  m = t.match(/([+-]?\d*\.?\d*)\s*x\s*\^?\s*2\s*([+-]\s*\d*\.?\d*)\s*x\s*([+-]\s*\d+\.?\d*)\s*=\s*0/);
+  if (m) {
+    let a = parseFloat(m[1]||"1"); if(m[1]==="-"||m[1]==="+") a=m[1]==="-"?-1:1;
+    let b = parseFloat((m[2]||"0").replace(/\s/g,""));
+    let c = parseFloat((m[3]||"0").replace(/\s/g,""));
+    const d = b*b - 4*a*c;
+    if (d < 0) return "No real roots (discriminant negative).";
+    const x1 = (-b + Math.sqrt(d))/(2*a);
+    const x2 = (-b - Math.sqrt(d))/(2*a);
+    return `Quadratic: ${a}x² ${b>=0?"+":""}${b}x ${c>=0?"+":""}${c} = 0<br>Discriminant = ${d}<br>x₁ = <b>${x1}</b><br>x₂ = <b>${x2}</b>`;
+  }
+  return null;
+}
+
+function processChat(raw) {
+  const text = raw.toLowerCase().trim();
+  const role = currentUser.role;
+  const isStaff = ["admin","developer","teacher","exam","bursary"].includes(role);
+  const isAdmin = ["admin","developer"].includes(role);
+
+  // SECURITY BLOCK
+  if (/password|hash|salt|credential|login detail|secret key|developer password|mnv1196|ecwa@2026|admin password|reset.*password|factory reset|localstorage|session key/i.test(text)) {
+    addBotMsg("🔒 <b>Security restriction</b>: I cannot discuss, reveal or assist with passwords, hashes, credentials or any security-sensitive information. Please contact the school administrator for account issues.");
+    return;
+  }
+
+  // HELP
+  if (/^(help|menu|commands|what can you do|capabilities)/.test(text)) {
+    addBotMsg(`<b>ECWA Super AI Plus Capabilities</b><br><br>
+• <b>Portal Navigation</b>: “go to students”, “open bursary”, “show results”, “take me to attendance”…<br>
+• <b>School Data</b>: student counts, search, fees, attendance %, results, classes, staff…<br>
+• <b>Mathematics</b>: solve equations, calculate expressions, percentages, averages…<br>
+• <b>Science & Education</b>: explain concepts (photosynthesis, gravity, fractions…)<br>
+• <b>Research & Critical Thinking</b>: analyse topics, give balanced views<br>
+• <b>Assignments</b>: help solve problems step-by-step<br>
+• <b>Admin Actions</b> (if authorised): add student, record payment, announce<br><br>
+Just type naturally!`, true);
+    return;
+  }
+
+  // GREETINGS
+  if (/^(hi|hello|hey|good morning|good afternoon|good evening|how are you)/.test(text)) {
+    addBotMsg(`Hello ${esc(currentUser.name)}! 👋 I am ready to help with the portal, your studies, calculations or any question. What would you like to do?`, true);
+    return;
+  }
+
+  // PORTAL NAVIGATION
+  const navMap = {
+    dashboard: ["dashboard","home","overview"],
+    students: ["student","students","pupil"],
+    teachers: ["teacher","staff","teachers"],
+    classes: ["class","classes"],
+    subjects: ["subject","subjects"],
+    attendance: ["attendance","attend"],
+    scores: ["score","scores","enter score","result entry"],
+    results: ["result","results","report card","report cards"],
+    broadsheet: ["broadsheet","cumulative"],
+    bursary: ["bursary","fee","fees","payment","payments"],
+    payroll: ["payroll","salary","voucher"],
+    assignments: ["assignment","assignments","homework"],
+    notifications: ["notification","announcement","news"],
+    settings: ["setting","settings","branding"],
+    profile: ["profile","my profile","account"],
+    users: ["user","users"],
+    allocations: ["allocation","subject alloc"],
+    developer: ["developer","dev dashboard","engine"]
+  };
+  for (const [page, keys] of Object.entries(navMap)) {
+    if (keys.some(k => text.includes("go to "+k) || text.includes("open "+k) || text.includes("show "+k) || text.includes("take me to "+k) || text === k || text.startsWith(k+" page"))) {
+      if (canAccess(page)) {
+        showPage(page);
+        addBotMsg(`✅ Navigated to <b>${page.charAt(0).toUpperCase()+page.slice(1)}</b> page.`);
+      } else {
+        addBotMsg("You do not have permission to access that page.");
+      }
+      return;
+    }
+  }
+
+  // STUDENT COUNT / LIST
+  if (/how many student|student count|number of student|total student/.test(text)) {
+    const n = visibleStudents().length;
+    addBotMsg(`There ${n===1?"is":"are"} currently <b>${n}</b> student${n===1?"":"s"} visible to you.`);
+    return;
+  }
+
+  // SEARCH STUDENT
+  if (/search student|find student|who is|student named|look up student/.test(text) || (text.includes("student") && text.length > 12 && !/how many|add|register/.test(text))) {
+    const q = text.replace(/search student|find student|who is|student named|look up|student/gi,"").trim();
+    if (q.length < 2) { addBotMsg("Please give a name or admission number."); return; }
+    const found = visibleStudents().filter(s => (`${s.name} ${s.admission}`).toLowerCase().includes(q));
+    if (!found.length) { addBotMsg(`No student matching “${esc(q)}” found.`); return; }
+    addBotMsg(found.map(s => `• <b>${esc(s.name)}</b> (${esc(s.admission)}) – ${esc(cls(s.classId)?.name||"—")} – ${esc(s.status)}`).join("<br>"));
+    return;
+  }
+
+  // RESULTS / AVERAGE
+  if (/result|grade|score|average|report card|my result/.test(text)) {
+    const scores = visibleScores().filter(x => x.session === DB.settings.session && x.term === DB.settings.term);
+    if (!scores.length) { addBotMsg("No results recorded for the current term yet."); return; }
+    if (role === "parent" || role === "student") {
+      const sid = currentUser.studentId;
+      const s = student(sid);
+      const avg = Math.round(scores.reduce((a,x)=>a+calcTotal(x),0)/scores.length);
+      addBotMsg(`<b>${esc(s?.name||"Student")}</b><br>Session: ${esc(DB.settings.session)} • ${esc(DB.settings.term)}<br>Average: <b>${avg}%</b> (${grade(avg)})<br>Subjects recorded: ${scores.length}`);
+    } else {
+      const avg = Math.round(scores.reduce((a,x)=>a+calcTotal(x),0)/scores.length);
+      addBotMsg(`Current term average across recorded scores: <b>${avg}%</b><br>Total score entries: ${scores.length}`);
+    }
+    return;
+  }
+
+  // FEES
+  if (/fee|payment|balance|outstanding|bursary|how much.*pay/.test(text)) {
+    const payments = visiblePayments();
+    const paid = payments.reduce((a,p)=>a+Number(p.amount||0),0);
+    const vs = visibleStudents();
+    const expected = vs.length * 100000;
+    const bal = Math.max(0, expected - paid);
+    addBotMsg(`Fees paid: <b>${money(paid)}</b><br>Expected (est.): ${money(expected)}<br>Outstanding: <b>${money(bal)}</b><br>Transactions: ${payments.length}`);
+    return;
+  }
+
+  // ATTENDANCE
+  if (/attendance|present|absent/.test(text)) {
+    if (role === "parent" || role === "student") {
+      addBotMsg(`Attendance rate: <b>${getAttendancePercent(currentUser.studentId)}</b>`);
+    } else {
+      const total = DB.attendance.length;
+      const present = DB.attendance.filter(a => a.status === "Present").length;
+      addBotMsg(`Total attendance records: ${total}<br>Present marks: ${present}`);
+    }
+    return;
+  }
+
+  // SCHOOL INFO
+  if (/session|term|school name|what is the current|academic year|motto|address/.test(text)) {
+    addBotMsg(`<b>${esc(DB.settings.schoolName)}</b><br>${esc(DB.settings.address)}<br>Motto: <i>${esc(DB.settings.motto)}</i><br>Session: <b>${esc(DB.settings.session)}</b><br>Term: <b>${esc(DB.settings.term)}</b><br>Pass Mark: ${DB.settings.passMark}%`);
+    return;
+  }
+
+  // CLASSES
+  if (/how many class|list class|classes/.test(text)) {
+    const cs = visibleClasses();
+    addBotMsg(`Classes (${cs.length}):<br>` + cs.map(c => `• ${esc(c.name)} (${esc(c.section)})`).join("<br>"));
+    return;
+  }
+
+  // ASSIGNMENTS
+  if (/assignment|homework/.test(text) && !/solve|help with|do my/.test(text)) {
+    let arr = DB.assignments;
+    if (role === "teacher") arr = arr.filter(a => a.teacherId === currentUser.id);
+    else if (role === "parent" || role === "student") {
+      const cids = new Set(visibleStudents().map(s => s.classId));
+      arr = arr.filter(a => cids.has(a.classId));
+    }
+    if (!arr.length) { addBotMsg("No assignments found."); return; }
+    addBotMsg(arr.slice(0,6).map(a => `• <b>${esc(a.title)}</b> – ${esc(subject(a.subjectId)?.name||"")} – Due: ${esc(a.due||"—")}`).join("<br>"));
+    return;
+  }
+
+  // ADMIN ACTIONS
+  if (isAdmin && /add student|register student|new student/.test(text)) {
+    chatPendingAction = { type: "addStudent" };
+    addBotMsg("Reply with student details:<br><code>Full Name, Class, Gender, Parent, Phone</code><br>Example: <code>Aisha Bello, JSS 1, Female, Mrs Bello, 08012345678</code>");
+    return;
+  }
+  if (["admin","developer","bursary"].includes(role) && /record payment|add payment|pay fee|record fee/.test(text)) {
+    chatPendingAction = { type: "recordPayment" };
+    addBotMsg("Reply with: <code>Student name or admission, Amount</code><br>Example: <code>Sample Student, 50000</code>");
+    return;
+  }
+  if (isAdmin && /announce|broadcast|send announcement|publish/.test(text)) {
+    chatPendingAction = { type: "announce" };
+    addBotMsg("Type the announcement message to publish to everyone:");
+    return;
+  }
+
+  // STAFF COUNT
+  if (isStaff && /how many staff|how many teacher|staff count/.test(text)) {
+    const n = DB.users.filter(u => ["teacher","exam","bursary"].includes(u.role)).length;
+    addBotMsg(`There are <b>${n}</b> staff members (teachers, exam & bursary officers).`);
+    return;
+  }
+
+  // MATH / CALCULATION
+  if (/calculate|compute|what is|solve|evaluate|[\d]+\s*[\+\-\*\/×÷%^]/.test(text) || /x\s*=|\d+x/.test(text)) {
+    const eq = solveEquation(raw);
+    if (eq) { addBotMsg(eq); return; }
+    // extract expression
+    let expr = raw.replace(/calculate|compute|what is|evaluate|solve|the answer to|equals?/gi,"").trim();
+    expr = expr.replace(/[^0-9+\-*/().%^×÷−eE\s]/g,"");
+    const res = safeEvalMath(expr);
+    if (res !== null) {
+      addBotMsg(`Expression: <code>${esc(expr)}</code><br>Result: <b>${res}</b>`);
+      return;
+    }
+  }
+
+  // EDUCATIONAL KNOWLEDGE BASE
+  const edu = {
+    photosynthesis: "Photosynthesis is the process by which green plants use sunlight, carbon dioxide and water to produce glucose and oxygen. Equation: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂ (in presence of chlorophyll and light).",
+    "water cycle": "The water cycle (hydrologic cycle) involves evaporation, condensation, precipitation and collection. Water evaporates from oceans/lakes, forms clouds, falls as rain/snow and returns to water bodies.",
+    gravity: "Gravity is the force of attraction between any two masses. On Earth it gives weight to objects and causes them to fall towards the centre of the Earth. Discovered by Isaac Newton.",
+    "newton first law": "Newton’s First Law (Law of Inertia): An object at rest stays at rest, and an object in motion stays in motion with the same speed and direction unless acted upon by an unbalanced force.",
+    "newton second law": "Newton’s Second Law: Force = mass × acceleration (F = ma). The acceleration of an object is directly proportional to the net force and inversely proportional to its mass.",
+    "newton third law": "Newton’s Third Law: For every action there is an equal and opposite reaction.",
+    fraction: "A fraction represents a part of a whole. It has a numerator (top) and denominator (bottom). Example: 3/4 means 3 parts out of 4 equal parts.",
+    percentage: "Percentage means ‘out of 100’. To convert a fraction to percentage multiply by 100. Example: 1/4 = 25%.",
+    democracy: "Democracy is a system of government in which power is vested in the people, who rule either directly or through freely elected representatives. Key features: free elections, rule of law, protection of rights.",
+    "human rights": "Human rights are basic rights and freedoms that belong to every person. They include right to life, education, freedom of speech, equality before the law, etc.",
+    "computer": "A computer is an electronic device that accepts data (input), processes it according to instructions, and produces information (output). Main parts: CPU, memory, input/output devices, storage.",
+    "internet": "The Internet is a global network of interconnected computers that communicate using standard protocols (TCP/IP). It enables email, web browsing, social media, online learning, etc.",
+    "climate change": "Climate change refers to long-term shifts in temperatures and weather patterns, primarily caused by human activities such as burning fossil fuels which increase greenhouse gases.",
+    "nigeria capital": "The capital of Nigeria is Abuja (Federal Capital Territory). Lagos was the capital until 1991.",
+    "katsina": "Katsina is a state in northwestern Nigeria. Its capital is Katsina city. It is known for agriculture, education and rich cultural heritage."
+  };
+  for (const [k,v] of Object.entries(edu)) {
+    if (text.includes(k) || text.includes("explain "+k) || text.includes("what is "+k) || text.includes("define "+k)) {
+      addBotMsg(`<b>${k.charAt(0).toUpperCase()+k.slice(1)}</b><br>${v}`);
+      return;
+    }
+  }
+
+  // CRITICAL THINKING / RESEARCH STYLE
+  if (/why is|advantages of|disadvantages of|compare|analyse|discuss|importance of|impact of/.test(text)) {
+    addBotMsg(`I will give a balanced, critical response.<br><br>
+<b>Topic:</b> ${esc(raw)}<br><br>
+• Consider multiple perspectives (economic, social, environmental, ethical).<br>
+• Look for evidence and examples.<br>
+• Weigh short-term vs long-term effects.<br>
+• Suggest possible solutions or recommendations.<br><br>
+Would you like me to expand on any specific angle (pros/cons, causes, solutions)?`);
+    return;
+  }
+
+  // ASSIGNMENT HELP
+  if (/solve|help with|do my|answer this|homework|assignment question/.test(text)) {
+    addBotMsg(`I can help you understand and solve assignment problems step-by-step.<br><br>
+Please paste the full question (maths, science, English, etc.). I will:
+1. Break it down
+2. Show the method
+3. Give the final answer with explanation<br><br>
+Note: Learning is better when you try first – I am here to guide you.`);
+    return;
+  }
+
+  // DEFAULT INTELLIGENT FALLBACK
+  addBotMsg(`I received: “${esc(raw)}”.<br><br>
+I can help with portal navigation, school data, mathematics, science explanations, calculations, critical analysis and more.<br>
+Try being more specific or type <b>help</b> to see everything I can do.`, true);
+}
+
+/* Event bindings */
+document.getElementById("loginBtn").onclick = login;
+document.getElementById("loginPass").addEventListener("keydown", e => { if (e.key==="Enter") login(); });
+document.getElementById("loginUser").addEventListener("keydown", e => { if (e.key==="Enter") document.getElementById("loginPass").focus(); });
+document.getElementById("menuBtn").onclick = toggleSidebar;
+document.getElementById("logoutBtn").onclick = () => logout(false);
+document.getElementById("themeBtn").onclick = () => document.body.classList.toggle("dark");
+document.getElementById("notifBtn").onclick = () => showPage("notifications");
+document.getElementById("modalClose").onclick = closeModal;
+document.getElementById("modal").addEventListener("click", e => { if (e.target.id==="modal") closeModal(); });
+document.getElementById("forgotLink").onclick = openForgotPassword;
+document.getElementById("toggleLoginPass").onclick = () => {
+  const inp = document.getElementById("loginPass");
+  inp.type = inp.type === "password" ? "text" : "password";
+  document.getElementById("toggleLoginPass").textContent = inp.type === "password" ? "👁️" : "🙈";
+};
+
+document.getElementById("addStudentBtn")?.addEventListener("click", () => openStudentModal(""));
+document.getElementById("addTeacherBtn")?.addEventListener("click", () => openTeacherModal(""));
+document.getElementById("addClassBtn")?.addEventListener("click", () => openClassModal(""));
+document.getElementById("addSubjectBtn")?.addEventListener("click", () => openSubjectModal(""));
+document.getElementById("addAllocBtn")?.addEventListener("click", openAllocModal);
+document.getElementById("saveAttendanceBtn")?.addEventListener("click", saveAttendance);
+document.getElementById("saveScoresBtn")?.addEventListener("click", saveScores);
+document.getElementById("printReportBtn")?.addEventListener("click", printCurrentReport);
+document.getElementById("downloadReportBtn")?.addEventListener("click", downloadReport);
+document.getElementById("shareReportBtn")?.addEventListener("click", shareReport);
+document.getElementById("loadBroadsheetBtn")?.addEventListener("click", loadBroadsheet);
+document.getElementById("printBroadsheetBtn")?.addEventListener("click", printBroadsheet);
+document.getElementById("downloadBroadsheetBtn")?.addEventListener("click", downloadBroadsheet);
+document.getElementById("addPaymentBtn")?.addEventListener("click", openPaymentModal);
+document.getElementById("prepareVoucherBtn")?.addEventListener("click", openPrepareVoucher);
+document.getElementById("addAssignmentBtn")?.addEventListener("click", () => openAssignmentModal(""));
+document.getElementById("addAnnouncementBtn")?.addEventListener("click", openAnnouncementModal);
+document.getElementById("saveBrandBtn")?.addEventListener("click", saveSettings);
+document.getElementById("saveAcademicBtn")?.addEventListener("click", saveSettings);
+
+document.getElementById("studentSearch")?.addEventListener("input", renderStudents);
+document.getElementById("studentClassFilter")?.addEventListener("change", renderStudents);
+document.getElementById("attendanceClass")?.addEventListener("change", renderAttendance);
+document.getElementById("attendanceDate")?.addEventListener("change", renderAttendance);
+document.getElementById("scoreClass")?.addEventListener("change", renderScores);
+document.getElementById("scoreSubject")?.addEventListener("change", renderScores);
+document.getElementById("resultClass")?.addEventListener("change", () => { updateResultStudents(); renderResults(); });
+document.getElementById("resultStudent")?.addEventListener("change", renderResults);
+
+document.getElementById("logoUpload")?.addEventListener("change", function() {
+  if (!assertRole(["admin","developer"])) return;
+  const file = this.files[0];
+  if (!file) return;
+  if (file.size > 800000) return toast("Logo too large (max ~800KB).");
+  const reader = new FileReader();
+  reader.onload = e => { DB.settings.logo = e.target.result; saveDB(); updateBrand(); toast("Logo updated."); };
+  reader.readAsDataURL(file);
+});
+document.getElementById("sigTeacherUpload")?.addEventListener("change", function() {
+  if (!assertRole(["admin","developer"])) return;
+  const file = this.files[0];
+  if (!file || file.size > 300000) return toast("Signature image max ~300KB.");
+  const reader = new FileReader();
+  reader.onload = e => { DB.settings.sigTeacher = e.target.result; saveDB(); toast("Teacher signature saved."); };
+  reader.readAsDataURL(file);
+});
+document.getElementById("sigPrincipalUpload")?.addEventListener("change", function() {
+  if (!assertRole(["admin","developer"])) return;
+  const file = this.files[0];
+  if (!file || file.size > 300000) return toast("Signature image max ~300KB.");
+  const reader = new FileReader();
+  reader.onload = e => { DB.settings.sigPrincipal = e.target.result; saveDB(); toast("Principal signature saved."); };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById("devShutdownBtn")?.addEventListener("click", devShutdown);
+document.getElementById("devReopenBtn")?.addEventListener("click", devReopen);
+document.getElementById("devLockBtn")?.addEventListener("click", devLock);
+document.getElementById("devUnlockBtn")?.addEventListener("click", devUnlock);
+document.getElementById("devFactoryBtn")?.addEventListener("click", devFactory);
+document.getElementById("devBackupBtn")?.addEventListener("click", devBackup);
+document.getElementById("devRestoreBtn")?.addEventListener("click", devRestore);
+document.getElementById("restoreFile")?.addEventListener("change", handleRestore);
+document.getElementById("devExportBtn")?.addEventListener("click", devExport);
+document.getElementById("devClearCacheBtn")?.addEventListener("click", devClearCache);
+document.getElementById("devDiagBtn")?.addEventListener("click", devDiag);
+document.getElementById("devSaveConfigBtn")?.addEventListener("click", devSaveConfig);
+document.getElementById("devSearchStudentBtn")?.addEventListener("click", devSearchStudent);
+document.getElementById("devResultLinkBtn")?.addEventListener("click", devResultLink);
+document.getElementById("devTestAnnounceBtn")?.addEventListener("click", devTestAnnounce);
+document.getElementById("devResetPwBtn")?.addEventListener("click", devResetPwTool);
+
+window.ECWA_PORTAL = {
+  getDB: () => (requireAuth() && (currentUser.role==="admin"||currentUser.role==="developer") ? clone(DB) : null),
+  currentRole: () => currentUser?.role || null,
+  resetDemo: () => {
+    if (!assertRole(["admin","developer"])) return;
+    if (confirm("Reset all local portal data to factory defaults?")) {
+      localStorage.removeItem(KEY);
+      sessionStorage.removeItem(SESSION_KEY);
+      location.reload();
+    }
+  }
+};
+
+DB = loadDB();
+updateBrand();
+restoreSession();
+</script>
+</body>
+</html>
+```
